@@ -46,26 +46,29 @@ const CheckoutForm = () => {
       });
       const JWT = localStorage.getItem('jwt');
 
-      const res = await fetch('http://localhost:5000/orders/charge', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${JWT}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          items: JSON.parse(localStorage.getItem('cart')),
-          paymentMethod: payload.paymentMethod,
-          address: {
-            fullName,
-            addressOne,
-            addressTwo: addressTwo.trim(),
-            zipCode,
-            city,
-            state
-          }
-        })
-      });
+      const res = await fetch(
+        'https://secure-citadel-31026.herokuapp.com/orders/charge',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            items: JSON.parse(localStorage.getItem('cart')),
+            paymentMethod: payload.paymentMethod,
+            address: {
+              fullName,
+              addressOne,
+              addressTwo: addressTwo.trim(),
+              zipCode,
+              city,
+              state
+            }
+          })
+        }
+      );
       const data = await res.json();
 
       setProcessing(false);

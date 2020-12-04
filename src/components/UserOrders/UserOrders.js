@@ -11,13 +11,16 @@ const UserOrders = () => {
     const getOrders = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
-        const res = await fetch(`http://localhost:5000/orders`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${JWT}`,
-            Accept: 'application/json'
+        const res = await fetch(
+          `https://secure-citadel-31026.herokuapp.com/orders`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${JWT}`,
+              Accept: 'application/json'
+            }
           }
-        });
+        );
         const data = await res.json();
 
         console.log(data);

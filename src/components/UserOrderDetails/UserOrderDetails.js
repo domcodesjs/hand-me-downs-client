@@ -11,13 +11,16 @@ const UserOrderDetails = () => {
     const getOrder = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
-        const res = await fetch(`http://localhost:5000/orders/${orderId}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${JWT}`,
-            Accept: 'application/json'
+        const res = await fetch(
+          `https://secure-citadel-31026.herokuapp.com/orders/${orderId}`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${JWT}`,
+              Accept: 'application/json'
+            }
           }
-        });
+        );
         const data = await res.json();
 
         if (!data.success) {
@@ -40,7 +43,7 @@ const UserOrderDetails = () => {
     try {
       const JWT = localStorage.getItem('jwt');
       const res = await fetch(
-        `http://localhost:5000/orders/${orderId}/fulfill`,
+        `https://secure-citadel-31026.herokuapp.com/orders/${orderId}/fulfill`,
         {
           method: 'POST',
           headers: {

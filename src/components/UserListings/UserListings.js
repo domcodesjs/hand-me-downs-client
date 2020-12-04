@@ -1,35 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
-import styled from "styled-components";
-import editIcon from "./images/edit-icon.svg";
-import trashIcon from "./images/trash-icon.svg";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom';
+import styled from 'styled-components';
+import editIcon from './images/edit-icon.svg';
+import trashIcon from './images/trash-icon.svg';
 
 const UserListings = () => {
   const [shopListings, setShopListings] = useState(null);
-  const [filterSold, setFilterSold] = useState("false");
+  const [filterSold, setFilterSold] = useState('false');
   let history = useHistory();
   const authState = useSelector(({ auth }) => auth);
 
   useEffect(() => {
     if (!authState.user) {
-      return history.push("/login");
+      return history.push('/login');
     }
 
     const getShopListings = async () => {
-      const JWT = localStorage.getItem("jwt");
-      const res = await fetch(`http://localhost:5000/listings/user/self`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${JWT}`,
-          Accept: "application/json",
-        },
-      });
+      const JWT = localStorage.getItem('jwt');
+      const res = await fetch(
+        `https://secure-citadel-31026.herokuapp.com/listings/user/self`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+            Accept: 'application/json'
+          }
+        }
+      );
 
       const data = await res.json();
 
       if (!data || !data.success) {
-        return history.push("/404");
+        return history.push('/404');
       }
 
       return setShopListings(data.listings);
@@ -39,14 +42,17 @@ const UserListings = () => {
 
   const handleDelete = async (listingId) => {
     try {
-      const JWT = localStorage.getItem("jwt");
-      const res = await fetch(`http://localhost:5000/listings/${listingId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${JWT}`,
-          Accept: "application/json",
-        },
-      });
+      const JWT = localStorage.getItem('jwt');
+      const res = await fetch(
+        `https://secure-citadel-31026.herokuapp.com/listings/${listingId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+            Accept: 'application/json'
+          }
+        }
+      );
       const data = await res.json();
 
       if (!data.success) {
@@ -69,19 +75,19 @@ const UserListings = () => {
     if (!filteredListings.length) {
       return (
         <>
-          <p className="no-listings">You haven't sold anything yet!</p>
+          <p className='no-listings'>You haven't sold anything yet!</p>
         </>
       );
     }
 
     return (
       <>
-        <div className="shop-listings">
+        <div className='shop-listings'>
           {filteredListings.map((listing) => (
-            <div key={listing.uid} className="shop-item">
-              <div className="shop-item-left">
+            <div key={listing.uid} className='shop-item'>
+              <div className='shop-item-left'>
                 <img
-                  src={`http://localhost:5000/uploads/images/${listing.image}`}
+                  src={`https://secure-citadel-31026.herokuapp.com/uploads/images/${listing.image}`}
                   alt={listing.title}
                   onClick={() =>
                     history.push(`/listing/${listing.uid}/${listing.slug}`)
@@ -97,7 +103,7 @@ const UserListings = () => {
                 </div>
               </div>
 
-              <div className="shop-item-right">
+              <div className='shop-item-right'>
                 {/* <button>
                   <img
                     src={editIcon}
@@ -130,11 +136,11 @@ const UserListings = () => {
     if (!filteredListings.length) {
       return (
         <>
-          <p className="no-listings">
-            You have no active listings 🙁 Click{" "}
-            <Link to="/your/listings/new">
+          <p className='no-listings'>
+            You have no active listings 🙁 Click{' '}
+            <Link to='/your/listings/new'>
               <span>here</span>
-            </Link>{" "}
+            </Link>{' '}
             to create one!
           </p>
         </>
@@ -143,12 +149,12 @@ const UserListings = () => {
 
     return (
       <>
-        <div className="shop-listings">
+        <div className='shop-listings'>
           {filteredListings.map((listing) => (
-            <div key={listing.uid} className="shop-item">
-              <div className="shop-item-left">
+            <div key={listing.uid} className='shop-item'>
+              <div className='shop-item-left'>
                 <img
-                  src={`http://localhost:5000/uploads/images/${listing.image}`}
+                  src={`https://secure-citadel-31026.herokuapp.com/uploads/images/${listing.image}`}
                   alt={listing.title}
                   onClick={() =>
                     history.push(`/listing/${listing.uid}/${listing.slug}`)
@@ -164,11 +170,11 @@ const UserListings = () => {
                 </div>
               </div>
 
-              <div className="shop-item-right">
+              <div className='shop-item-right'>
                 <button>
                   <img
                     src={editIcon}
-                    alt="Edit"
+                    alt='Edit'
                     onClick={() =>
                       history.push(`/your/listings/${listing.uid}/edit`)
                     }
@@ -177,7 +183,7 @@ const UserListings = () => {
                 <button>
                   <img
                     src={trashIcon}
-                    alt="Delete"
+                    alt='Delete'
                     onClick={() => handleDelete(listing.uid)}
                   />
                 </button>
@@ -193,12 +199,12 @@ const UserListings = () => {
     if (!shopListings.length) {
       return (
         <StyledMain>
-          <h1 className="shop-listings-title">My Listings</h1>
-          <p className="no-listings">
-            You have no listings 🙁 Click{" "}
-            <Link to="/your/listings/new">
+          <h1 className='shop-listings-title'>My Listings</h1>
+          <p className='no-listings'>
+            You have no listings 🙁 Click{' '}
+            <Link to='/your/listings/new'>
               <span>here</span>
-            </Link>{" "}
+            </Link>{' '}
             to create one!
           </p>
         </StyledMain>
@@ -207,18 +213,18 @@ const UserListings = () => {
 
     return (
       <StyledMain>
-        <div className="user-listings-header">
+        <div className='user-listings-header'>
           <h1>My Listings</h1>
           <select
-            defaultValue="false"
+            defaultValue='false'
             onChange={(e) => setFilterSold(e.target.value)}
           >
-            <option value="false">Active</option>
-            <option value="true">Sold</option>
+            <option value='false'>Active</option>
+            <option value='true'>Sold</option>
           </select>
         </div>
 
-        {filterSold === "true" ? renderSoldListings() : renderActiveListings()}
+        {filterSold === 'true' ? renderSoldListings() : renderActiveListings()}
       </StyledMain>
     );
   };

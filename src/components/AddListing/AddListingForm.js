@@ -23,7 +23,9 @@ const AddListingForm = () => {
 
   const getCategories = async () => {
     try {
-      const res = await fetch('http://localhost:5000/categories');
+      const res = await fetch(
+        'https://secure-citadel-31026.herokuapp.com/categories'
+      );
       const data = await res.json();
 
       if (!data.success) {
@@ -52,14 +54,17 @@ const AddListingForm = () => {
       formData.append('image', image);
 
       const JWT = localStorage.getItem('jwt');
-      const res = await fetch('http://localhost:5000/listings', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${JWT}`,
-          Accept: 'application/json'
-        },
-        body: formData
-      });
+      const res = await fetch(
+        'https://secure-citadel-31026.herokuapp.com/listings',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+            Accept: 'application/json'
+          },
+          body: formData
+        }
+      );
 
       const data = await res.json();
 

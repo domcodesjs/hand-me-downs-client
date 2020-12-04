@@ -10,7 +10,9 @@ const Listing = () => {
 
   useEffect(() => {
     const getListing = async () => {
-      const res = await fetch(`http://localhost:5000/listings/${listingId}`);
+      const res = await fetch(
+        `https://secure-citadel-31026.herokuapp.com/listings/${listingId}`
+      );
       const data = await res.json();
       if (data.listing.slug !== listingSlug) {
         return history.push(
@@ -73,7 +75,7 @@ const Listing = () => {
     return (
       <StyledMain>
         <img
-          src={`http://localhost:5000/uploads/images/${listing.image}`}
+          src={`https://secure-citadel-31026.herokuapp.com/uploads/images/${listing.image}`}
           alt='Product'
         />
         <div class='listing-info'>

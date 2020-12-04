@@ -31,7 +31,7 @@ const EditListingForm = () => {
       try {
         const JWT = localStorage.getItem('jwt');
         const res = await fetch(
-          `http://localhost:5000/listings/user/update/${listingId}`,
+          `https://secure-citadel-31026.herokuapp.com/listings/user/update/${listingId}`,
           {
             method: 'GET',
             headers: {
@@ -71,14 +71,17 @@ const EditListingForm = () => {
       }
 
       const JWT = localStorage.getItem('jwt');
-      const res = await fetch(`http://localhost:5000/listings/${listingId}`, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${JWT}`,
-          Accept: 'application/json'
-        },
-        body: formData
-      });
+      const res = await fetch(
+        `https://secure-citadel-31026.herokuapp.com/listings/${listingId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+            Accept: 'application/json'
+          },
+          body: formData
+        }
+      );
 
       const data = await res.json();
 
