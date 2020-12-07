@@ -33,7 +33,7 @@ export const signup = (email, username, password) => {
   return async (dispatch) => {
     try {
       const res = await fetch(
-        'https://secure-citadel-31026.herokuapp.com/users',
+        'https://cors-anywhere.herokuapp.com/https://secure-citadel-31026.herokuapp.com/users',
         {
           method: 'POST',
           headers: {
