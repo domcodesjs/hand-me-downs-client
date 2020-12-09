@@ -18,16 +18,13 @@ const UserListings = () => {
 
     const getShopListings = async () => {
       const JWT = localStorage.getItem('jwt');
-      const res = await fetch(
-        `https://secure-citadel-31026.herokuapp.com/listings/user/self`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${JWT}`,
-            Accept: 'application/json'
-          }
+      const res = await fetch(`http://localhost:5000/listings/user/self`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${JWT}`,
+          Accept: 'application/json'
         }
-      );
+      });
 
       const data = await res.json();
 
@@ -43,16 +40,13 @@ const UserListings = () => {
   const handleDelete = async (listingId) => {
     try {
       const JWT = localStorage.getItem('jwt');
-      const res = await fetch(
-        `https://secure-citadel-31026.herokuapp.com/listings/${listingId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${JWT}`,
-            Accept: 'application/json'
-          }
+      const res = await fetch(`http://localhost:5000/listings/${listingId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${JWT}`,
+          Accept: 'application/json'
         }
-      );
+      });
       const data = await res.json();
 
       if (!data.success) {
@@ -87,7 +81,7 @@ const UserListings = () => {
             <div key={listing.uid} className='shop-item'>
               <div className='shop-item-left'>
                 <img
-                  src={`https://secure-citadel-31026.herokuapp.com/uploads/images/${listing.image}`}
+                  src={`http://localhost:5000/uploads/images/${listing.image}`}
                   alt={listing.title}
                   onClick={() =>
                     history.push(`/listing/${listing.uid}/${listing.slug}`)
@@ -154,7 +148,7 @@ const UserListings = () => {
             <div key={listing.uid} className='shop-item'>
               <div className='shop-item-left'>
                 <img
-                  src={`https://secure-citadel-31026.herokuapp.com/uploads/images/${listing.image}`}
+                  src={`http://localhost:5000/uploads/images/${listing.image}`}
                   alt={listing.title}
                   onClick={() =>
                     history.push(`/listing/${listing.uid}/${listing.slug}`)

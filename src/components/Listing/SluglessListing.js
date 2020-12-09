@@ -9,7 +9,7 @@ const SluglessListing = () => {
     const checkListing = async () => {
       try {
         const res = await fetch(
-          `https://secure-citadel-31026.herokuapp.com/listings/check/${listingId}`
+          `http://localhost:5000/listings/check/${listingId}`
         );
         const data = await res.json();
 

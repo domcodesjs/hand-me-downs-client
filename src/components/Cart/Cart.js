@@ -37,7 +37,7 @@ const Cart = () => {
           {cartItems.map((item) => (
             <div key={item.uid} className='cart-item'>
               <img
-                src={`https://secure-citadel-31026.herokuapp.com/uploads/images/${item.image}`}
+                src={`http://localhost:5000/uploads/images/${item.image}`}
                 alt='Product'
               />
               <h1>{item.title}</h1>

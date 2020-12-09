@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const SearchForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('working');
   };
 
   return (

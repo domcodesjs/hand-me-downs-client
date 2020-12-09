@@ -28,6 +28,7 @@ import UserOrders from './components/UserOrders/UserOrders';
 import UserOrderDetails from './components/UserOrderDetails/UserOrderDetails';
 import UserPurchaseDetails from './components/UserPurchaseDetails/UserPurchaseDetails';
 import Search from './components/Search/Search';
+import SearchForm from './components/SearchForm/SearchForm';
 
 const App = () => {
   const [navActive, setNavActive] = useState(false);
@@ -48,6 +49,7 @@ const App = () => {
         <GlobalStyle></GlobalStyle>
         <Header toggleNav={toggleNav} navActive={navActive}></Header>
         <StyledWrapper>
+          <SearchForm></SearchForm>
           <SlideoutNav
             navActive={navActive}
             setNavActive={setNavActive}

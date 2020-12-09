@@ -10,7 +10,7 @@ const Shop = () => {
   useEffect(() => {
     const getShopListings = async () => {
       const res = await fetch(
-        `https://secure-citadel-31026.herokuapp.com/listings/shop/${username}`
+        `http://localhost:5000/listings/shop/${username}`
       );
       const data = await res.json();
 
@@ -55,7 +55,7 @@ const Shop = () => {
               }
             >
               <img
-                src={`https://secure-citadel-31026.herokuapp.com/uploads/images/${listing.image}`}
+                src={`http://localhost:5000/uploads/images/${listing.image}`}
                 alt={listing.title}
               />
               <h2>{listing.title}</h2>

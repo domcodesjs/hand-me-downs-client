@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { signIn } from '../../store/actions/authActions';
@@ -6,24 +7,64 @@ import { signIn } from '../../store/actions/authActions';
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState(null);
   const authState = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
-  const handleSignIn = useCallback(
+  const loginSuccess = useCallback(
     (email, password) => dispatch(signIn(email, password)),
     [dispatch]
   );
+  let history = useHistory();
+
+  useEffect(() => {
+    if (authState.user) {
+      return history.push('/');
+    }
+  }, [authState.user, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (email.trim() === '' || password.trim() === '') {
       return;
     }
-    return handleSignIn(email, password);
+
+    try {
+      setErrors(null);
+      const res = await fetch('http://localhost:5000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+
+      if (!data.success) {
+        const errors = data.errors.map((err) => err.msg);
+        return setErrors(errors);
+      }
+
+      localStorage.setItem('jwt', data.token);
+      loginSuccess(data.user);
+      return history.push('/');
+    } catch (err) {
+      return setErrors(['Something went wrong. Please try again.']);
+    }
   };
 
   return (
     <>
-      {authState.error ? <p>{authState.error}</p> : null}
+      {errors ? (
+        <StyledErrors>
+          {errors.map((msg, idx) => (
+            <p key={idx}>{msg}</p>
+          ))}
+        </StyledErrors>
+      ) : null}
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor='email'>Email</label>
         <input
@@ -71,6 +112,10 @@ const StyledForm = styled.form`
     color: #fff;
     font-size: 1.4rem;
   }
+`;
+
+const StyledErrors = styled.div`
+  background: red;
 `;
 
 export default LoginForm;

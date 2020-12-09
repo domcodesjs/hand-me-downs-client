@@ -24,25 +24,11 @@ const authReducer = (state = initState, action) => {
       }));
     case 'LOGIN_SUCCESS':
       return (state = produce(state, (draftState) => {
-        draftState.error = null;
-        draftState.user = action.payload.data.user;
-      }));
-    case 'LOGIN_FAILURE':
-      return (state = produce(state, (draftState) => {
-        console.log(action.payload);
-        draftState.user = null;
-        draftState.error = action.payload.data.message;
+        draftState.user = action.payload.user;
       }));
     case 'SIGNUP_SUCCESS':
       return (state = produce(state, (draftState) => {
-        draftState.error = null;
-        draftState.user = action.payload.data.user;
-      }));
-    case 'SIGNUP_FAILURE':
-      return (state = produce(state, (draftState) => {
-        console.log(action.payload);
-        draftState.user = null;
-        draftState.error = action.payload.error;
+        draftState.user = action.payload.user;
       }));
     default:
       return state;

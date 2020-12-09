@@ -8,12 +8,12 @@ const SignupForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [errors, setErrors] = useState(null);
   const authState = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
-  const handleSignup = useCallback(
-    (email, username, password) => dispatch(signup(email, username, password)),
-    [dispatch]
-  );
+  const signupSuccess = useCallback((user) => dispatch(signup(user)), [
+    dispatch
+  ]);
   let history = useHistory();
 
   useEffect(() => {
@@ -33,17 +33,38 @@ const SignupForm = () => {
       return;
     }
 
-    return handleSignup(email, username, password);
+    try {
+      setErrors(null);
+      const res = await fetch('http://localhost:5000/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, username, password })
+      });
+
+      const data = await res.json();
+
+      if (!data.success) {
+        const errors = data.errors.map((err) => err.msg);
+        return setErrors(errors);
+      }
+
+      localStorage.setItem('jwt', data.token);
+      signupSuccess(data.user);
+      return history.push('/');
+    } catch (err) {
+      return setErrors(['Something went wrong. Please try again.']);
+    }
   };
 
   return (
     <>
-      {authState.error ? (
+      {errors ? (
         <StyledErrors>
-          <p>{authState.error}</p>
-          {/* {errors.map((error) => (
-            <p key={error.param}>{error.msg}</p>
-          ))} */}
+          {errors.map((msg, idx) => (
+            <p key={idx}>{msg}</p>
+          ))}
         </StyledErrors>
       ) : null}
       <StyledForm onSubmit={handleSubmit}>

@@ -1,41 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import searchIcon from './images/search-icon.png';
-import heroImg from './images/hero.png';
-import demoImg1 from './images/demo-img-1.png';
-import demoImg2 from './images/demo-img-2.png';
-import demoImg3 from './images/demo-img-3.png';
-import demoImg4 from './images/demo-img-4.png';
+// import searchIcon from './images/search-icon.png';
 
 const Home = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('this does not do anything yet...');
-  };
-
   return (
     <StyledHome>
-      <form onClick={handleSubmit}>
-        <input type='text' placeholder='search' />
-        <button type='submit'>
-          <img src={searchIcon} alt='' />
-        </button>
-      </form>
-      <img src={heroImg} alt='Hero' className='hero-img' />
       <div>
         <h1>Newly Added</h1>
-        <div className='newly-added-images'>
-          <img src={demoImg1} alt='Demo' />
-          <img src={demoImg2} alt='Demo' />
-          <img src={demoImg3} alt='Demo' />
-          <img src={demoImg4} alt='Demo' />
-          <img src={demoImg1} alt='Demo' />
-          <img src={demoImg2} alt='Demo' />
-          <img src={demoImg3} alt='Demo' />
-          <img src={demoImg4} alt='Demo' />
-          <img src={demoImg3} alt='Demo' />
-          <img src={demoImg4} alt='Demo' />
-        </div>
       </div>
     </StyledHome>
   );
