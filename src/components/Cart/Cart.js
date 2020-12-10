@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState(null);
+  const authState = useSelector(({ auth }) => auth);
   let history = useHistory();
 
   useEffect(() => {
@@ -27,12 +29,17 @@ const Cart = () => {
 
     return (
       <StyledMain>
-        <h1>Your Cart $</h1>
-        {/* <p>{cartItems.length} items</p> */}
-        <button onClick={() => history.push('/checkout')}>
-          Checkout $
+        <h1>
+          Your Cart $
           {cartItems.reduce((a, c) => (a += parseFloat(c.price)), 0).toFixed(2)}
-        </button>
+        </h1>
+        {!authState.user ? (
+          <button onClick={() => history.push('/login')}>
+            Log In to Checkout
+          </button>
+        ) : (
+          <button onClick={() => history.push('/checkout')}>Checkout</button>
+        )}
         <div className='cart-items'>
           {cartItems.map((item) => (
             <div key={item.uid} className='cart-item'>

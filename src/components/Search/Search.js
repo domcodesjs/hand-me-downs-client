@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import SearchForm from './SearchForm';
+import queryString from 'query-string';
+import SearchForm from '../SearchForm/SearchForm';
 
 const Search = () => {
   const [results, setResults] = useState(null);
   let history = useHistory();
   let location = useLocation();
 
-  console.log(location);
-
   useEffect(() => {
-    getListings();
-  }, []);
+    let url = 'http://localhost:5000/listings';
+    if (location.search.length) {
+      const queries = queryString.parse(location.search);
+      if (queries['title']) {
+        return getListings(`${url}?title=${queries['title']}`);
+      }
+    }
+    return getListings(url);
+  }, [location.search]);
 
-  const getListings = async () => {
+  const getListings = async (url) => {
     try {
-      const res = await fetch('http://localhost:5000/listings');
+      const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
       return setResults(data.listings);
     } catch (err) {
       console.log(err);
@@ -26,22 +31,29 @@ const Search = () => {
   };
 
   const renderResults = () => {
+    if (!results.length) {
+      return <p>No Results Found</p>;
+    }
     return (
       <div className='results'>
         {results.map((listing) => (
-          <div
-            className='result'
-            key={listing.uid}
-            onClick={() =>
-              history.push(`/listing/${listing.uid}/${listing.slug}`)
-            }
-          >
+          <div className='result' key={listing.uid}>
             <img
               src={`http://localhost:5000/uploads/images/${listing.image}`}
               alt=''
+              onClick={() =>
+                history.push(`/listing/${listing.uid}/${listing.slug}`)
+              }
             />
             <h1>{listing.title}</h1>
             <p>${listing.price}</p>
+            <button
+              onClick={() =>
+                history.push(`/listing/${listing.uid}/${listing.slug}`)
+              }
+            >
+              View Details
+            </button>
           </div>
         ))}
       </div>
@@ -49,15 +61,24 @@ const Search = () => {
   };
 
   return results ? (
-    <StyledMain>
-      <h1>Search</h1>
+    <>
       <SearchForm></SearchForm>
-      {renderResults()}
-    </StyledMain>
+      <StyledMain>
+        <h1>Search Results</h1>
+        {renderResults()}
+      </StyledMain>
+    </>
   ) : null;
 };
 
 const StyledMain = styled.main`
+  h1 {
+    border-bottom: 0.1rem solid #d8d6d5;
+    padding-bottom: 0.8rem;
+    font-size: 2.2rem;
+    margin: 1.6rem 0;
+  }
+
   .results {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -76,6 +97,17 @@ const StyledMain = styled.main`
 
     img {
       width: 100%;
+      cursor: pointer;
+    }
+
+    button {
+      margin-top: 0.8rem;
+      width: 100%;
+      height: 4.8rem;
+      background: #3c3c3c;
+      border-radius: 0.4rem;
+      color: #fff;
+      font-size: 1.4rem;
     }
   }
 

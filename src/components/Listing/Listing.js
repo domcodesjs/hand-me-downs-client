@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import SearchForm from '../SearchForm/SearchForm';
 
 const Listing = () => {
   const [listing, setListing] = useState(null);
@@ -71,45 +72,49 @@ const Listing = () => {
 
   const renderListing = () => {
     return (
-      <StyledMain>
-        <img
-          src={`http://localhost:5000/uploads/images/${listing.image}`}
-          alt='Product'
-        />
-        <div class='listing-info'>
-          <div className='quick-info'>
-            <h1>{listing.title}</h1>
-            <p>${listing.price}</p>
+      <>
+        <SearchForm></SearchForm>
+        <StyledMain>
+          <img
+            src={`http://localhost:5000/uploads/images/${listing.image}`}
+            alt='Product'
+          />
+          <div class='listing-info'>
+            <div className='quick-info'>
+              <h1>{listing.title}</h1>
+              <p>${listing.price}</p>
+            </div>
+
+            <Link
+              className='listing-seller'
+              to={`/shop/${listing.sellerUsername}`}
+            >
+              {listing.sellerUsername}
+            </Link>
+
+            {listing.sold ? (
+              <button type='button'>Sold</button>
+            ) : (
+              renderListingButton()
+            )}
+
+            <div className='listing-description'>
+              <h2>Description</h2>
+              <p>{listing.description}</p>
+            </div>
+
+            <div className='listing-refund-policy'>
+              <h2>Return Policy</h2>
+              <p>
+                You are protected every time you make a purchase on hand me
+                downs. We will give you a full refund if your item never ships
+                or does not match the listing description. Otherwise, all sales
+                are final.
+              </p>
+            </div>
           </div>
-
-          <Link
-            className='listing-seller'
-            to={`/shop/${listing.sellerUsername}`}
-          >
-            {listing.sellerUsername}
-          </Link>
-
-          {listing.sold ? (
-            <button type='button'>Sold</button>
-          ) : (
-            renderListingButton()
-          )}
-
-          <div className='listing-description'>
-            <h2>Description</h2>
-            <p>{listing.description}</p>
-          </div>
-
-          <div className='listing-refund-policy'>
-            <h2>Return Policy</h2>
-            <p>
-              You are protected every time you make a purchase on hand me downs.
-              We will give you a full refund if your item never ships or does
-              not match the listing description. Otherwise, all sales are final.
-            </p>
-          </div>
-        </div>
-      </StyledMain>
+        </StyledMain>
+      </>
     );
   };
 

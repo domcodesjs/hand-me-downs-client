@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import SearchForm from '../SearchForm/SearchForm';
 
 const Shop = () => {
   const [shopListings, setShopListings] = useState(null);
@@ -34,36 +35,35 @@ const Shop = () => {
     }
 
     return (
-      <StyledMain>
-        <button className='back-btn' onClick={() => history.goBack()}>
-          Back
-        </button>
+      <>
+        <SearchForm></SearchForm>
+        <StyledMain>
+          <div>
+            <h1>{username.trimEnd().toLowerCase()}</h1>
+          </div>
 
-        <div>
-          <h1>{username.trimEnd().toLowerCase()}</h1>
-        </div>
+          <h1 className='shop-listings-title'>All Listings</h1>
 
-        <h1 className='shop-listings-title'>All Listings</h1>
-
-        <div className='shop-listings'>
-          {shopListings.map((listing) => (
-            <div
-              key={listing.uid}
-              className='shop-item'
-              onClick={() =>
-                history.push(`/listing/${listing.uid}/${listing.slug}`)
-              }
-            >
-              <img
-                src={`http://localhost:5000/uploads/images/${listing.image}`}
-                alt={listing.title}
-              />
-              <h2>{listing.title}</h2>
-              <p>${listing.price}</p>
-            </div>
-          ))}
-        </div>
-      </StyledMain>
+          <div className='shop-listings'>
+            {shopListings.map((listing) => (
+              <div
+                key={listing.uid}
+                className='shop-item'
+                onClick={() =>
+                  history.push(`/listing/${listing.uid}/${listing.slug}`)
+                }
+              >
+                <img
+                  src={`http://localhost:5000/uploads/images/${listing.image}`}
+                  alt={listing.title}
+                />
+                <h2>{listing.title}</h2>
+                <p>${listing.price}</p>
+              </div>
+            ))}
+          </div>
+        </StyledMain>
+      </>
     );
   };
 

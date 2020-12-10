@@ -26,7 +26,7 @@ const SlideoutNav = ({ navActive, setNavActive }) => {
         <ul>
           {authState.user ? (
             <>
-              <li>
+              <li class='create-listing-btn'>
                 <NavLink
                   to='/your/listings/new'
                   onClick={() => setNavActive(false)}
@@ -39,12 +39,12 @@ const SlideoutNav = ({ navActive, setNavActive }) => {
                   to='/your/listings'
                   onClick={() => setNavActive(false)}
                 >
-                  Listings
+                  My Listings
                 </NavLink>
               </li>
               <li>
                 <NavLink to='/your/orders' onClick={() => setNavActive(false)}>
-                  Orders
+                  My Orders
                 </NavLink>
               </li>
               <li>
@@ -52,7 +52,7 @@ const SlideoutNav = ({ navActive, setNavActive }) => {
                   to='/your/purchases'
                   onClick={() => setNavActive(false)}
                 >
-                  Purchases
+                  My Purchases
                 </NavLink>
               </li>
               <li onClick={handleLogout}>Logout</li>
@@ -86,6 +86,7 @@ const StyledNav = styled.nav`
   background: black;
   position: fixed;
   color: #fff;
+
   ul {
     list-style: none;
     margin: 0;

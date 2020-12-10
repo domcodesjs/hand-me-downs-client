@@ -1,14 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-// import searchIcon from './images/search-icon.png';
+import SearchForm from '../SearchForm/SearchForm';
 
 const Home = () => {
   return (
-    <StyledHome>
-      <div>
-        <h1>Newly Added</h1>
-      </div>
-    </StyledHome>
+    <>
+      <SearchForm></SearchForm>
+      <StyledHome>
+        <div>
+          <h1>Newly Added</h1>
+        </div>
+      </StyledHome>
+    </>
   );
 };
 

@@ -115,7 +115,17 @@ const StyledForm = styled.form`
 `;
 
 const StyledErrors = styled.div`
-  background: red;
+  p {
+    background: #e31c3d;
+    color: #fff;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  p:last-child {
+    margin-bottom: 1.6rem;
+  }
 `;
 
 export default LoginForm;
