@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { signIn } from '../../store/actions/authActions';
 
@@ -8,19 +8,12 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState(null);
-  const authState = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
   const loginSuccess = useCallback(
     (email, password) => dispatch(signIn(email, password)),
     [dispatch]
   );
   let history = useHistory();
-
-  useEffect(() => {
-    if (authState.user) {
-      return history.push('/');
-    }
-  }, [authState.user, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signup } from '../../store/actions/authActions';
 
 const SignupForm = () => {
@@ -9,18 +9,11 @@ const SignupForm = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [errors, setErrors] = useState(null);
-  const authState = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
   const signupSuccess = useCallback((user) => dispatch(signup(user)), [
     dispatch
   ]);
   let history = useHistory();
-
-  useEffect(() => {
-    if (authState.user) {
-      return history.push('/');
-    }
-  }, [authState.user, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

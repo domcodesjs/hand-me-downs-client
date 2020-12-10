@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import AddListingForm from './AddListingForm';
 import styled from 'styled-components';
 
 const AddListing = () => {
+  const authState = useSelector(({ auth }) => auth);
+  let history = useHistory();
+
+  useEffect(() => {
+    if (!authState.user) {
+      return history.push('/login');
+    }
+  }, [authState.user, history]);
+
   return (
     <StyledMain>
       <h1>Create Listing</h1>

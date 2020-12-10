@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -11,15 +10,11 @@ const AddListingForm = () => {
   const [categories, setCategories] = useState(null);
   const [price, setPrice] = useState('');
   const [gender, setGender] = useState('');
-  const authState = useSelector(({ auth }) => auth);
   let history = useHistory();
 
   useEffect(() => {
-    if (!authState.user) {
-      return history.push('/login');
-    }
     getCategories();
-  }, [authState.user, history]);
+  }, []);
 
   const getCategories = async () => {
     try {
