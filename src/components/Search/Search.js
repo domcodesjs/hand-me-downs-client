@@ -11,29 +11,39 @@ const Search = () => {
 
   useEffect(() => {
     let url = 'http://localhost:5000/listings';
+    const getListings = async (url) => {
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return setResults(data.listings);
+      } catch (err) {
+        return history.push('/');
+      }
+    };
+
     if (location.search.length) {
       const queries = queryString.parse(location.search);
       if (queries['title']) {
         return getListings(`${url}?title=${queries['title']}`);
       }
     }
-    return getListings(url);
-  }, [location.search]);
 
-  const getListings = async (url) => {
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      return setResults(data.listings);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    return getListings(url);
+  }, [location.search, history]);
 
   const renderResults = () => {
     if (!results.length) {
+      if (location.search.length) {
+        const queries = queryString.parse(location.search);
+        return queries['title'] ? (
+          <p>No Results Found for {queries['title']}</p>
+        ) : (
+          <p>No Results Found</p>
+        );
+      }
       return <p>No Results Found</p>;
     }
+
     return (
       <div className='results'>
         {results.map((listing) => (

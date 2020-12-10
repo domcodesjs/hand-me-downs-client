@@ -57,7 +57,7 @@ const UserListings = () => {
         shopListings.filter((listing) => listing.uid !== data.uid)
       );
     } catch (err) {
-      console.log(err);
+      return history.push('/');
     }
   };
 

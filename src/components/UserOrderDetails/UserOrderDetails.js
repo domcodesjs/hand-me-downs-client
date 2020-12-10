@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const UserOrderDetails = () => {
   const [order, setOrder] = useState(null);
   let { orderId } = useParams();
+  const authState = useSelector(({ auth }) => auth);
   let history = useHistory();
+
+  useEffect(() => {
+    if (!authState.user) {
+      return history.push('/login');
+    }
+  }, [authState.user, history]);
 
   useEffect(() => {
     const getOrder = async () => {
@@ -24,10 +32,9 @@ const UserOrderDetails = () => {
           return history.push('/');
         }
 
-        console.log(data);
         return setOrder(data.order);
       } catch (err) {
-        console.log(err);
+        return history.push('/');
       }
     };
 
@@ -54,13 +61,10 @@ const UserOrderDetails = () => {
       const data = await res.json();
 
       if (!data.success) {
-        console.log(':(');
-        return;
+        return history.push('/');
       }
-
-      console.log(data);
     } catch (err) {
-      console.log(err);
+      return history.push('/');
     }
   };
 

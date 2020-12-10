@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 
 const UserOrders = () => {
   const [orders, setOrders] = useState(null);
+  const authState = useSelector(({ auth }) => auth);
   let history = useHistory();
+
+  useEffect(() => {
+    if (!authState.user) {
+      return history.push('/login');
+    }
+  }, [authState.user, history]);
 
   useEffect(() => {
     const getOrders = async () => {
@@ -19,16 +27,14 @@ const UserOrders = () => {
           }
         });
         const data = await res.json();
-
-        console.log(data);
         return setOrders(data.orders);
       } catch (err) {
-        console.log(err);
+        return history.push('/');
       }
     };
 
     getOrders();
-  }, []);
+  }, [history]);
 
   // const numberOfItemsOrder = (items) => {
   //   let count = 0;

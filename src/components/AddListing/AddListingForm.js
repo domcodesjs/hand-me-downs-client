@@ -13,23 +13,22 @@ const AddListingForm = () => {
   let history = useHistory();
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    const getCategories = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/categories');
+        const data = await res.json();
 
-  const getCategories = async () => {
-    try {
-      const res = await fetch('http://localhost:5000/categories');
-      const data = await res.json();
+        if (!data.success) {
+          return;
+        }
 
-      if (!data.success) {
-        return;
+        return setCategories(data.categories);
+      } catch (err) {
+        return history.push('/');
       }
-
-      return setCategories(data.categories);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    };
+    getCategories();
+  }, [history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +66,7 @@ const AddListingForm = () => {
         `/listing/${data.listing.listing_uid}/${data.listing.listing_slug}`
       );
     } catch (err) {
-      console.log(err);
+      return history.push('/');
     }
   };
 

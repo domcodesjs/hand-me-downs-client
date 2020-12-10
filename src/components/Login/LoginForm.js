@@ -34,8 +34,6 @@ const LoginForm = () => {
 
       const data = await res.json();
 
-      console.log(data);
-
       if (!data.success) {
         const errors = data.errors.map((err) => err.msg);
         return setErrors(errors);

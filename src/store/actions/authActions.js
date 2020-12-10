@@ -25,7 +25,6 @@ export const verifyJWT = () => {
       }
       return dispatch({ type: 'INVALID_TOKEN' });
     } catch (err) {
-      console.log(err);
       return dispatch({ type: 'INVALID_TOKEN' });
     }
   };

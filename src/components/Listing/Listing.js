@@ -79,7 +79,7 @@ const Listing = () => {
             src={`http://localhost:5000/uploads/images/${listing.image}`}
             alt='Product'
           />
-          <div class='listing-info'>
+          <div className='listing-info'>
             <div className='quick-info'>
               <h1>{listing.title}</h1>
               <p>${listing.price}</p>

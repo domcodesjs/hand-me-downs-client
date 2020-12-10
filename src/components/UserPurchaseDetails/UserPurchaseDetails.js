@@ -1,27 +1,20 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { verifyJWT } from '../../store/actions/authActions';
 
 const UserPurchaseDetails = () => {
   const [purchase, setPurchase] = useState(null);
   const { purchaseId } = useParams();
   const authState = useSelector(({ auth }) => auth);
   const history = useHistory();
-  const dispatch = useDispatch();
-  const checkJWT = useCallback(() => dispatch(verifyJWT()), [dispatch]);
 
   useEffect(() => {
     if (!authState.user) {
-      if (localStorage.getItem('jwt')) {
-        return checkJWT();
-      }
-
       return history.push('/login');
     }
-  }, [authState.user, checkJWT, history]);
+  }, [authState.user, history]);
 
   useEffect(() => {
     const getPurchase = async () => {
@@ -43,10 +36,9 @@ const UserPurchaseDetails = () => {
           return history.push('/');
         }
 
-        console.log(data);
         return setPurchase(data.purchase);
       } catch (err) {
-        console.log(err);
+        return history.push('/');
       }
     };
 

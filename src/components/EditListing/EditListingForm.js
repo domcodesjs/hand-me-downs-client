@@ -51,7 +51,7 @@ const EditListingForm = () => {
         setCategory(data.listing.category);
         setPrice(data.listing.price);
       } catch (err) {
-        console.log(err);
+        return history.push('/');
       }
     };
 
@@ -88,7 +88,7 @@ const EditListingForm = () => {
 
       return history.push(`/your/listings`);
     } catch (err) {
-      console.log(err);
+      return history.push('/');
     }
   };
 

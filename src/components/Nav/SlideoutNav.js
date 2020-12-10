@@ -26,7 +26,7 @@ const SlideoutNav = ({ navActive, setNavActive }) => {
         <ul>
           {authState.user ? (
             <>
-              <li class='create-listing-btn'>
+              <li>
                 <NavLink
                   to='/your/listings/new'
                   onClick={() => setNavActive(false)}

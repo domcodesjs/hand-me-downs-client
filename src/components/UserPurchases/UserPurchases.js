@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 
 const UserPurchases = () => {
   const [purchases, setPurchases] = useState(null);
+  const authState = useSelector(({ auth }) => auth);
+
   let history = useHistory();
+  useEffect(() => {
+    if (!authState.user) {
+      return history.push('/login');
+    }
+  }, [authState.user, history]);
 
   useEffect(() => {
     const getPurchases = async () => {
