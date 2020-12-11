@@ -98,6 +98,9 @@ const StyledMain = styled.main`
   .result {
     h1 {
       font-size: 1.8rem;
+      border-bottom: none;
+      padding-bottom: 0;
+      margin: 0;
     }
 
     p {

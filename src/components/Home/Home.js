@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchForm from '../SearchForm/SearchForm';
+import LatestListings from './LatestListings';
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <StyledHome>
         <div>
           <h1>Newly Added</h1>
+          <LatestListings></LatestListings>
         </div>
       </StyledHome>
     </>
