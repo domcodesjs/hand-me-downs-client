@@ -1,10 +1,19 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import configureMockStore from 'redux-mock-store';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { shallow, configure } from 'enzyme';
 import EditListing from '../EditListing';
 
 configure({ adapter: new Adapter() });
 
+const mockStore = configureMockStore();
+const store = mockStore({ auth: { user: true } });
+
 it('Edit Listing component renders without crashing', () => {
-  shallow(<EditListing></EditListing>);
+  shallow(
+    <Provider store={store}>
+      <EditListing></EditListing>
+    </Provider>
+  );
 });
