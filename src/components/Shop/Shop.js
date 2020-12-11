@@ -38,30 +38,30 @@ const Shop = () => {
       <>
         <SearchForm></SearchForm>
         <StyledMain>
-          <div>
-            <h1>{username.trimEnd().toLowerCase()}</h1>
-          </div>
+          <h1>{username.trimEnd().toLowerCase()}</h1>
 
-          <h1 className='shop-listings-title'>All Listings</h1>
-
-          <div className='shop-listings'>
+          <StyledDiv>
             {shopListings.map((listing) => (
-              <div
-                key={listing.uid}
-                className='shop-item'
-                onClick={() =>
-                  history.push(`/listing/${listing.uid}/${listing.slug}`)
-                }
-              >
+              <div className='listing' key={listing.uid}>
                 <img
                   src={`http://localhost:5000/uploads/images/${listing.image}`}
-                  alt={listing.title}
+                  alt=''
+                  onClick={() =>
+                    history.push(`/listing/${listing.uid}/${listing.slug}`)
+                  }
                 />
-                <h2>{listing.title}</h2>
+                <h1>{listing.title}</h1>
                 <p>${listing.price}</p>
+                <button
+                  onClick={() =>
+                    history.push(`/listing/${listing.uid}/${listing.slug}`)
+                  }
+                >
+                  View Details
+                </button>
               </div>
             ))}
-          </div>
+          </StyledDiv>
         </StyledMain>
       </>
     );
@@ -71,45 +71,55 @@ const Shop = () => {
 };
 
 const StyledMain = styled.main`
-  .back-btn {
-    height: 2.4rem;
-    width: 8rem;
-    background: #3c3c3c;
-    border-radius: 0.4rem;
-    color: #fff;
-    font-size: 1.4rem;
-    margin: 1.6rem 0 3.2rem 0;
+  h1 {
+    border-bottom: 0.1rem solid #d8d6d5;
+    padding-bottom: 0.8rem;
+    font-size: 2.2rem;
+    margin: 1.6rem 0;
   }
+`;
 
-  .shop-listings-title {
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin: 2.4rem 0 1.6rem 0;
-  }
+const StyledDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2.4rem 1.6rem;
 
-  .shop-listings {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1.6rem;
-  }
-
-  .shop-item {
-    cursor: pointer;
-
-    img {
-      width: 100%;
-      height: 10rem;
-    }
-
-    h2 {
-      margin-top: 0.8rem;
-      font-size: 1.4rem;
-      font-weight: 300;
+  .listing {
+    h1 {
+      font-size: 1.8rem;
+      border-bottom: none;
+      padding-bottom: 0;
+      margin: 0;
+      text-align: left;
     }
 
     p {
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 1.4rem;
     }
+
+    img {
+      width: 100%;
+      cursor: pointer;
+    }
+
+    button {
+      margin-top: 0.8rem;
+      width: 100%;
+      height: 4.8rem;
+      background: #3c3c3c;
+      border-radius: 0.4rem;
+      color: #fff;
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (min-width: 576px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 `;
 
