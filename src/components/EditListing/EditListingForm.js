@@ -1,30 +1,38 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { verifyJWT } from '../../store/actions/authActions';
 
 const EditListingForm = () => {
+  const [errors, setErrors] = useState(null);
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [categories, setCategories] = useState(null);
+  const [gender, setGender] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const authState = useSelector(({ auth }) => auth);
   let history = useHistory();
   let { listingId } = useParams();
-  const dispatch = useDispatch();
-  const checkJWT = useCallback(() => dispatch(verifyJWT()), [dispatch]);
 
   useEffect(() => {
-    if (!authState.user) {
-      if (localStorage.getItem('jwt')) {
-        return checkJWT();
-      }
+    const getCategories = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/categories');
+        const data = await res.json();
 
-      return history.push('/login');
-    }
-  }, [authState.user, checkJWT, history]);
+        if (!data.success) {
+          return;
+        }
+
+        return setCategories(data.categories);
+      } catch (err) {
+        return history.push('/');
+      }
+    };
+    getCategories();
+  }, [history]);
 
   useEffect(() => {
     const getListing = async () => {
@@ -46,9 +54,12 @@ const EditListingForm = () => {
           return history.push('/');
         }
 
+        console.log(data);
+
         setTitle(data.listing.title);
         setDescription(data.listing.description);
         setCategory(data.listing.category);
+        setGender(data.listing.gender);
         setPrice(data.listing.price);
       } catch (err) {
         return history.push('/');
@@ -56,16 +67,20 @@ const EditListingForm = () => {
     };
 
     getListing();
-  }, [authState.user, history, listingId, checkJWT]);
+  }, [authState.user, history, listingId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
+      setErrors(null);
       const formData = new FormData();
       formData.append('title', title);
       formData.append('description', description);
       formData.append('category', category);
+      formData.append('gender', gender);
       formData.append('price', price);
+
       if (image) {
         formData.append('image', image);
       }
@@ -83,7 +98,8 @@ const EditListingForm = () => {
       const data = await res.json();
 
       if (!data.success) {
-        return;
+        const errors = data.errors.map((err) => err.msg);
+        return setErrors(errors);
       }
 
       return history.push(`/your/listings`);
@@ -97,8 +113,15 @@ const EditListingForm = () => {
     setImage(file);
   };
 
-  return (
+  return categories ? (
     <StyledForm onSubmit={handleSubmit}>
+      {errors ? (
+        <StyledErrors>
+          {errors.map((msg, idx) => (
+            <p key={idx}>{msg}</p>
+          ))}
+        </StyledErrors>
+      ) : null}
       <label htmlFor='title'>Title</label>
       <input
         id='title'
@@ -120,17 +143,29 @@ const EditListingForm = () => {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
+      <select
+        id='gender'
+        value={gender}
+        onChange={(e) => setGender(e.target.value)}
+      >
+        <option disabled value={''}></option>
+        <option value='men'>Men</option>
+        <option value='women'>Women</option>
+        <option value='unisex'>Unisex</option>
+      </select>
       <label htmlFor='category'>Category</label>
       <select
         id='category'
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        <option value='T-Shirts'>T-Shirts</option>
-        <option value='Jeans'>Jeans</option>
-        <option value='Hats'>Hats</option>
+        <option disabled value={''}></option>
+        {categories.map((category, idx) => (
+          <option key={idx} value={category.name}>
+            {category.name}
+          </option>
+        ))}
       </select>
-
       <label htmlFor='image'>Image</label>
       <input id='image' type='file' onChange={fileChangedHandler} />
       {image ? (
@@ -145,7 +180,7 @@ const EditListingForm = () => {
         <button type='submit'>Submit</button>
       </div>
     </StyledForm>
-  );
+  ) : null;
 };
 
 const StyledForm = styled.form`
@@ -200,6 +235,20 @@ const StyledForm = styled.form`
   .edit-form-btns {
     display: flex;
     justify-content: space-between;
+  }
+`;
+
+const StyledErrors = styled.div`
+  p {
+    background: #e31c3d;
+    color: #fff;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  p:last-child {
+    margin-bottom: 1.6rem;
   }
 `;
 

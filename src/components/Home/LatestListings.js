@@ -10,7 +10,6 @@ const LatestListings = () => {
     const getListings = async () => {
       const res = await fetch(`http://localhost:5000/listings/app/latest`);
       const data = await res.json();
-      console.log(data);
       return setListings(data.listings);
     };
     getListings();

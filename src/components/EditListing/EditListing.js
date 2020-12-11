@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import EditListingForm from './EditListingForm';
 import styled from 'styled-components';
 
 const EditListing = () => {
+  let history = useHistory();
+  const authState = useSelector(({ auth }) => auth);
+
+  useEffect(() => {
+    if (!authState.user) {
+      return history.push('/login');
+    }
+  }, [authState.user, history]);
+
   return (
     <StyledMain>
       <h1>Edit Listing</h1>

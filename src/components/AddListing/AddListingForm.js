@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const AddListingForm = () => {
+  const [errors, setErrors] = useState(null);
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -33,16 +34,18 @@ const AddListingForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setErrors(null);
+
       if (!image) {
-        return;
+        return setErrors(['You must provide an image']);
       }
 
       const formData = new FormData();
-      formData.append('title', title);
-      formData.append('description', description);
-      formData.append('category', category);
-      formData.append('gender', gender);
-      formData.append('price', price);
+      formData.append('title', title.trim());
+      formData.append('description', description.trim());
+      formData.append('category', category.trim());
+      formData.append('gender', gender.trim());
+      formData.append('price', price.trim());
       formData.append('image', image);
 
       const JWT = localStorage.getItem('jwt');
@@ -58,8 +61,8 @@ const AddListingForm = () => {
       const data = await res.json();
 
       if (!data.success) {
-        // handle this better
-        return;
+        const errors = data.errors.map((err) => err.msg);
+        return setErrors(errors);
       }
 
       return history.push(
@@ -77,6 +80,13 @@ const AddListingForm = () => {
 
   return categories ? (
     <StyledForm onSubmit={handleSubmit}>
+      {errors ? (
+        <StyledErrors>
+          {errors.map((msg, idx) => (
+            <p key={idx}>{msg}</p>
+          ))}
+        </StyledErrors>
+      ) : null}
       <label htmlFor='title'>Title</label>
       <input
         id='title'
@@ -95,9 +105,9 @@ const AddListingForm = () => {
         onChange={(e) => setGender(e.target.value)}
       >
         <option disabled value={''}></option>
-        <option value='Men'>Men</option>
-        <option value='Women'>Women</option>
-        <option value='Unisex'>Unisex</option>
+        <option value='men'>Men</option>
+        <option value='women'>Women</option>
+        <option value='unisex'>Unisex</option>
       </select>
       <label htmlFor='category'>Category</label>
       <select
@@ -179,6 +189,20 @@ const StyledForm = styled.form`
     color: #fff;
     font-size: 1.4rem;
     margin: 1.6rem 0 3.2rem 0;
+  }
+`;
+
+const StyledErrors = styled.div`
+  p {
+    background: #e31c3d;
+    color: #fff;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  p:last-child {
+    margin-bottom: 1.6rem;
   }
 `;
 
