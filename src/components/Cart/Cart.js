@@ -46,9 +46,17 @@ const Cart = () => {
               <img
                 src={`http://localhost:5000/uploads/images/${item.image}`}
                 alt='Product'
+                onClick={() =>
+                  history.push(`/listing/${item.uid}/${item.slug}`)
+                }
               />
-              <h1>{item.title}</h1>
-
+              <h3
+                onClick={() =>
+                  history.push(`/listing/${item.uid}/${item.slug}`)
+                }
+              >
+                {item.title}
+              </h3>
               <p>${item.price}</p>
             </div>
           ))}
@@ -96,10 +104,15 @@ const StyledMain = styled.main`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 0.8rem;
+
+    h3 {
+      cursor: pointer;
+    }
 
     img {
+      cursor: pointer;
       height: 10rem;
-      /* display: none; */
     }
   }
 

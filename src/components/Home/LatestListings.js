@@ -56,11 +56,15 @@ const StyledDiv = styled.div`
 
   .listing {
     h1 {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       border-bottom: none;
       padding-bottom: 0;
       margin: 0;
       text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 95%;
     }
 
     p {
@@ -70,6 +74,7 @@ const StyledDiv = styled.div`
 
     img {
       width: 100%;
+      max-height: 12rem;
       cursor: pointer;
     }
 
@@ -86,6 +91,12 @@ const StyledDiv = styled.div`
 
   @media (min-width: 576px) {
     grid-template-columns: repeat(3, 1fr);
+
+    .listing {
+      img {
+        max-height: 100%;
+      }
+    }
   }
 
   @media (min-width: 992px) {

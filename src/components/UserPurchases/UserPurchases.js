@@ -13,9 +13,7 @@ const UserPurchases = () => {
     if (!authState.user) {
       return history.push('/login');
     }
-  }, [authState.user, history]);
 
-  useEffect(() => {
     const getPurchases = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
@@ -26,21 +24,21 @@ const UserPurchases = () => {
             Accept: 'application/json'
           }
         });
+
         const data = await res.json();
 
         if (!data.success) {
-          localStorage.removeItem('token');
-          return history.push('/login');
+          return history.push('/');
         }
 
         return setPurchases(data.purchases);
       } catch (err) {
-        return history.push('/login');
+        return history.push('/');
       }
     };
 
     getPurchases();
-  }, [history]);
+  }, [authState.user, history]);
 
   const numberOfItemsOrder = (items) => {
     let count = 0;

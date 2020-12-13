@@ -87,33 +87,16 @@ const UserListings = () => {
                     history.push(`/listing/${listing.uid}/${listing.slug}`)
                   }
                 />
-                <div
-                  onClick={() =>
-                    history.push(`/listing/${listing.uid}/${listing.slug}`)
-                  }
-                >
-                  <h2>{listing.title}</h2>
+                <div>
+                  <h2
+                    onClick={() =>
+                      history.push(`/listing/${listing.uid}/${listing.slug}`)
+                    }
+                  >
+                    {listing.title}
+                  </h2>
                   <p>${listing.price}</p>
                 </div>
-              </div>
-
-              <div className='shop-item-right'>
-                {/* <button>
-                  <img
-                    src={editIcon}
-                    alt='Edit'
-                    onClick={() =>
-                      history.push(`/your/listings/${listing.uid}/edit`)
-                    }
-                  />
-                </button> */}
-                {/* <button>
-                  <img
-                    src={trashIcon}
-                    alt='Delete'
-                    onClick={() => handleDelete(listing.uid)}
-                  />
-                </button> */}
               </div>
             </div>
           ))}
@@ -154,12 +137,14 @@ const UserListings = () => {
                     history.push(`/listing/${listing.uid}/${listing.slug}`)
                   }
                 />
-                <div
-                  onClick={() =>
-                    history.push(`/listing/${listing.uid}/${listing.slug}`)
-                  }
-                >
-                  <h2>{listing.title}</h2>
+                <div>
+                  <h2
+                    onClick={() =>
+                      history.push(`/listing/${listing.uid}/${listing.slug}`)
+                    }
+                  >
+                    {listing.title}
+                  </h2>
                   <p>${listing.price}</p>
                 </div>
               </div>
@@ -195,7 +180,7 @@ const UserListings = () => {
         <StyledMain>
           <h1 className='shop-listings-title'>My Listings</h1>
           <p className='no-listings'>
-            You have no listings 🙁 Click{' '}
+            You have no listings. Click{' '}
             <Link to='/your/listings/new'>
               <span>here</span>
             </Link>{' '}
@@ -227,6 +212,10 @@ const UserListings = () => {
 };
 
 const StyledMain = styled.main`
+  img {
+    cursor: pointer;
+  }
+
   .no-listings {
     text-align: center;
 
@@ -288,6 +277,7 @@ const StyledMain = styled.main`
       margin-top: 0.8rem;
       font-size: 1.4rem;
       font-weight: 300;
+      cursor: pointer;
     }
 
     p {

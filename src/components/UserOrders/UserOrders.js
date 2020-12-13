@@ -13,9 +13,7 @@ const UserOrders = () => {
     if (!authState.user) {
       return history.push('/login');
     }
-  }, [authState.user, history]);
 
-  useEffect(() => {
     const getOrders = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
@@ -34,16 +32,7 @@ const UserOrders = () => {
     };
 
     getOrders();
-  }, [history]);
-
-  // const numberOfItemsOrder = (items) => {
-  //   let count = 0;
-  //   for (let key in items) {
-  //     count += items[key]['items'].length;
-  //   }
-
-  //   return count > 1 ? <p>{count} items</p> : <p>{count} item</p>;
-  // };
+  }, [authState.user, history]);
 
   const renderOrders = () => {
     return (

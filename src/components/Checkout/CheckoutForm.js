@@ -155,6 +155,10 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
 
+  h3 {
+    margin-bottom: 0.8rem;
+  }
+
   label {
     margin-bottom: 0.8rem;
   }
@@ -164,6 +168,7 @@ const StyledForm = styled.form`
     height: 4.8rem;
     border-radius: 0.4rem;
     padding-left: 0.8rem;
+    border: 1px solid black;
   }
 
   button {

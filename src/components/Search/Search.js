@@ -97,10 +97,14 @@ const StyledMain = styled.main`
 
   .result {
     h1 {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       border-bottom: none;
       padding-bottom: 0;
       margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 95%;
     }
 
     p {
@@ -111,6 +115,7 @@ const StyledMain = styled.main`
     img {
       width: 100%;
       cursor: pointer;
+      max-height: 12rem;
     }
 
     button {
@@ -127,6 +132,12 @@ const StyledMain = styled.main`
   @media (min-width: 576px) {
     .results {
       grid-template-columns: repeat(3, 1fr);
+    }
+
+    .listing {
+      img {
+        max-height: 100%;
+      }
     }
   }
 

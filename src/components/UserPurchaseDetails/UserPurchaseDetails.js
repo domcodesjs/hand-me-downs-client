@@ -66,7 +66,9 @@ const UserPurchaseDetails = () => {
               </Link>
               <p>
                 <Link to={`/listing/${item.uid}/${item.slug}`}>
-                  {item.title}
+                  {item.title.length > 21
+                    ? item.title.substring(0, 18) + '...'
+                    : item.title}
                 </Link>
               </p>
               <p>${item.price}</p>

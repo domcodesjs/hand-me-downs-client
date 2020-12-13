@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 
 const UserOrderDetails = () => {
+  const [error, setError] = useState(null);
   const [order, setOrder] = useState(null);
   let { orderId } = useParams();
   const authState = useSelector(({ auth }) => auth);
@@ -14,9 +15,7 @@ const UserOrderDetails = () => {
     if (!authState.user) {
       return history.push('/login');
     }
-  }, [authState.user, history]);
 
-  useEffect(() => {
     const getOrder = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
@@ -27,6 +26,7 @@ const UserOrderDetails = () => {
             Accept: 'application/json'
           }
         });
+
         const data = await res.json();
 
         if (!data.success) {
@@ -40,12 +40,13 @@ const UserOrderDetails = () => {
     };
 
     getOrder();
-  }, [orderId, history]);
+  }, [orderId, authState.user, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setError(null);
       const JWT = localStorage.getItem('jwt');
       const res = await fetch(
         `http://localhost:5000/orders/${orderId}/fulfill`,
@@ -62,10 +63,12 @@ const UserOrderDetails = () => {
       const data = await res.json();
 
       if (!data.success) {
-        return history.push('/');
+        return setError('Could not fulfill order. Please try again.');
       }
+
+      return setOrder(data.order);
     } catch (err) {
-      return history.push('/');
+      return setError('Could not fulfill order. Please try again.');
     }
   };
 
@@ -81,6 +84,14 @@ const UserOrderDetails = () => {
     return (
       <>
         <h1>Order #{order.order_uid}</h1>
+        {error ? (
+          <StyledError>
+            <p>
+              {error}
+              <span onClick={() => setError(null)}>X</span>
+            </p>
+          </StyledError>
+        ) : null}
         <h2>Purchase Summary</h2>
         <p>
           Order created on {format(new Date(order.order_created), 'MM/dd/yyyy')}
@@ -96,11 +107,24 @@ const UserOrderDetails = () => {
           </p>
         </div>
 
-        <div className='order-items'>
+        <div>
           <h2>Items Ordered</h2>
-          {order.order_items.map((item) => (
-            <div className='order-item' key={item.uid}>
-              {item.title}
+          {order.order_items.map((item, idx) => (
+            <div className='order-item' key={idx}>
+              <Link to={`/listing/${item.uid}/${item.slug}`}>
+                <img
+                  src={`http://localhost:5000/uploads/images/${item.image}`}
+                  alt=''
+                />
+              </Link>
+              <p>
+                <Link to={`/listing/${item.uid}/${item.slug}`}>
+                  {item.title.length > 21
+                    ? item.title.substring(0, 18) + '...'
+                    : item.title}
+                </Link>
+              </p>
+              <p>${item.price}</p>
             </div>
           ))}
         </div>
@@ -109,10 +133,11 @@ const UserOrderDetails = () => {
           <h2>Order Status</h2>
           <p>{order.order_status}</p>
         </div>
-
-        <form onSubmit={handleSubmit} className='order-change-form'>
-          <button type='submit'>Fulfill Order</button>
-        </form>
+        {order.order_status === 'Pending Shipment' ? (
+          <form onSubmit={handleSubmit} className='order-change-form'>
+            <button type='submit'>Fulfill Order</button>
+          </form>
+        ) : null}
       </>
     );
   };
@@ -142,14 +167,22 @@ const StyledMain = styled.main`
       font-weight: 400;
     }
   }
-  .order-items {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+
+    img {
+      width: 50px;
+    }
   }
 
   .order-change-form {
     display: flex;
     flex-direction: column;
+    margin-top: 1.6rem;
   }
 
   input {
@@ -171,6 +204,27 @@ const StyledMain = styled.main`
     border-radius: 0.4rem;
     color: #fff;
     font-size: 1.4rem;
+  }
+`;
+
+const StyledError = styled.div`
+  p {
+    background: #e31c3d;
+    color: #fff;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+
+  p:last-child {
+    margin-bottom: 1.6rem;
   }
 `;
 
