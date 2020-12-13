@@ -1,0 +1,120 @@
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import SearchForm from '../SearchForm/SearchForm';
+
+const Listings = () => {
+  const [listings, setListings] = useState();
+  let history = useHistory();
+
+  useEffect(() => {
+    const getListings = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/listings');
+        const data = await res.json();
+        return setListings(data.listings);
+      } catch (err) {
+        return history.push('/');
+      }
+    };
+    getListings();
+  }, [history]);
+
+  return listings ? (
+    <StyledMain>
+      <SearchForm></SearchForm>
+      <h1>All Listings</h1>
+      <div className='listings'>
+        {listings.map((listing) => (
+          <div className='listing' key={listing.uid}>
+            <img
+              src={`http://localhost:5000/uploads/images/${listing.image}`}
+              alt=''
+              onClick={() =>
+                history.push(`/listing/${listing.uid}/${listing.slug}`)
+              }
+            />
+            <h1>{listing.title}</h1>
+            <p>${listing.price}</p>
+            <button
+              onClick={() =>
+                history.push(`/listing/${listing.uid}/${listing.slug}`)
+              }
+            >
+              View Details
+            </button>
+          </div>
+        ))}
+      </div>
+    </StyledMain>
+  ) : null;
+};
+
+const StyledMain = styled.main`
+  h1 {
+    border-bottom: 0.1rem solid #d8d6d5;
+    padding-bottom: 0.8rem;
+    font-size: 2.2rem;
+    margin: 1.6rem 0;
+  }
+
+  .listings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2.4rem 1.6rem;
+  }
+
+  .listing {
+    h1 {
+      font-size: 1.6rem;
+      border-bottom: none;
+      padding-bottom: 0;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 95%;
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 1.4rem;
+    }
+
+    img {
+      width: 100%;
+      cursor: pointer;
+      max-height: 12rem;
+    }
+
+    button {
+      margin-top: 0.8rem;
+      width: 100%;
+      height: 4.8rem;
+      background: #3c3c3c;
+      border-radius: 0.4rem;
+      color: #fff;
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (min-width: 576px) {
+    .listings {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .listing {
+      img {
+        max-height: 100%;
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    .listings {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+`;
+
+export default Listings;

@@ -20,6 +20,7 @@ import Shop from './components/Shop/Shop';
 import SlideoutNav from './components/Nav/SlideoutNav';
 import Cart from './components/Cart/Cart';
 import AddListing from './components/AddListing/AddListing';
+import Listings from './components/Listings/Listings';
 import UserListings from './components/UserListings/UserListings';
 import EditListing from './components/EditListing/EditListing';
 import Checkout from './components/Checkout/Checkout';
@@ -61,6 +62,9 @@ const App = () => {
             </Route>
             <Route exact path='/login'>
               <Login></Login>
+            </Route>
+            <Route exact path='/listings'>
+              <Listings></Listings>
             </Route>
             <Route exact path='/listing/:listingId'>
               <SluglessListing></SluglessListing>

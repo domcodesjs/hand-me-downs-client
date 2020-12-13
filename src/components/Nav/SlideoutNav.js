@@ -27,6 +27,11 @@ const SlideoutNav = ({ navActive, setNavActive }) => {
           {authState.user ? (
             <>
               <li>
+                <NavLink to='/listings' onClick={() => setNavActive(false)}>
+                  All Listings
+                </NavLink>
+              </li>
+              <li>
                 <NavLink
                   to='/your/listings/new'
                   onClick={() => setNavActive(false)}
@@ -59,6 +64,11 @@ const SlideoutNav = ({ navActive, setNavActive }) => {
             </>
           ) : (
             <>
+              <li>
+                <NavLink to='/listings' onClick={() => setNavActive(false)}>
+                  All Listings
+                </NavLink>
+              </li>
               <li>
                 <NavLink to='/login' onClick={() => setNavActive(false)}>
                   Log In

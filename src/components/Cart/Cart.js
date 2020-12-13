@@ -17,6 +17,14 @@ const Cart = () => {
     return setCartItems([]);
   }, []);
 
+  const handleClick = (uid) => {
+    const filteredCart = JSON.parse(localStorage.getItem('cart')).filter(
+      (item) => item.uid !== uid
+    );
+    localStorage.setItem('cart', JSON.stringify(filteredCart));
+    return setCartItems(filteredCart);
+  };
+
   const renderCart = () => {
     if (!cartItems.length) {
       return (
@@ -57,7 +65,10 @@ const Cart = () => {
               >
                 {item.title}
               </h3>
-              <p>${item.price}</p>
+              <p>
+                ${item.price}
+                <span onClick={() => handleClick(item.uid)}>X</span>
+              </p>
             </div>
           ))}
         </div>
@@ -113,6 +124,15 @@ const StyledMain = styled.main`
     img {
       cursor: pointer;
       height: 10rem;
+    }
+
+    p {
+      span {
+        font-weight: 600;
+        margin-left: 3.2rem;
+        color: red;
+        cursor: pointer;
+      }
     }
   }
 
