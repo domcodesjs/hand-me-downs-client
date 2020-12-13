@@ -102,7 +102,6 @@ const App = () => {
             <Route exact path='/your/listings/:listingId/edit'>
               <EditListing></EditListing>
             </Route>
-            {/* When a route is not found */}
             <Route path='/404'>
               <NotFound></NotFound>
             </Route>

@@ -63,7 +63,7 @@ const UserPurchases = () => {
                 Purchased on{' '}
                 {format(new Date(purchase.purchases_created), 'MMM dd, yyyy')}
               </p>
-              <p>Order #{purchase.purchases_uid}</p>
+              <p>Purchase #{purchase.purchases_uid}</p>
               {numberOfItemsOrder(purchase.purchases_items)}
               <button
                 type='button'

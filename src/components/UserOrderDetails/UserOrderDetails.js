@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { format } from 'date-fns';
 
 const UserOrderDetails = () => {
   const [order, setOrder] = useState(null);
@@ -79,16 +80,12 @@ const UserOrderDetails = () => {
     } = order.order_shipping_address;
     return (
       <>
-        <h1>Order # {order.order_uid}</h1>
-        <p>Order created {}</p>
-        <div className='order-items'>
-          <h2>Items Ordered</h2>
-          {order.order_items.map((item) => (
-            <div className='order-item' key={item.uid}>
-              {item.title}
-            </div>
-          ))}
-        </div>
+        <h1>Order #{order.order_uid}</h1>
+        <h2>Purchase Summary</h2>
+        <p>
+          Order created on {format(new Date(order.order_created), 'MM/dd/yyyy')}
+        </p>
+
         <div className='order-shipping-info'>
           <h2>Shipping Information</h2>
           <p>{fullName}</p>
@@ -98,6 +95,16 @@ const UserOrderDetails = () => {
             {city}, {state} {zipCode}
           </p>
         </div>
+
+        <div className='order-items'>
+          <h2>Items Ordered</h2>
+          {order.order_items.map((item) => (
+            <div className='order-item' key={item.uid}>
+              {item.title}
+            </div>
+          ))}
+        </div>
+
         <div className='order-status'>
           <h2>Order Status</h2>
           <p>{order.order_status}</p>
@@ -115,9 +122,26 @@ const UserOrderDetails = () => {
 
 const StyledMain = styled.main`
   h1 {
-    font-size: 1.6rem;
+    border-bottom: 0.1rem solid #d8d6d5;
+    padding-bottom: 0.8rem;
+    font-size: 2.2rem;
+    margin: 1.6rem 0;
   }
 
+  h2 {
+    font-size: 1.8rem;
+    margin: 1.6rem 0 0.8rem 0;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+
+    span {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+  }
   .order-items {
     display: grid;
     grid-template-columns: repeat(1, 1fr);

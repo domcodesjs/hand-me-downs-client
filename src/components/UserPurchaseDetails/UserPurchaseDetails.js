@@ -52,10 +52,10 @@ const UserPurchaseDetails = () => {
       accumulator.push(
         <>
           <Link to={`/shop/${key}`}>
-            <h4>{key}</h4>
+            <h3>
+              {key} <span>({items[key]['orderStatus']})</span>
+            </h3>
           </Link>
-
-          <p>Status {items[key]['orderStatus']}</p>
           {items[key]['items'].map((item, idx) => (
             <div className='purchase-item' key={idx}>
               <Link to={`/listing/${item.uid}/${item.slug}`}>
@@ -89,25 +89,30 @@ const UserPurchaseDetails = () => {
 
     return (
       <StyledMain>
-        <p>Purchase #{uid}</p>
+        <h1>Purchase #{uid}</h1>
+        <h2>Purchase Summary</h2>
         <p>Purchased on {format(new Date(createdAt), 'MM/dd/yyyy')}</p>
         <div className='purchase-shipping-info'>
-          <h3>Shipping Information</h3>
+          <h2>Shipping Information</h2>
           <p>{shippingAddress.fullName}</p>
           <p>{shippingAddress.addressOne}</p>
-          <p>{shippingAddress.city}</p>
-          <p>{shippingAddress.state}</p>
-          <p>{shippingAddress.zipCode}</p>
+          {shippingAddress.addressTwo.length ? (
+            <p>{shippingAddress.addressTwo}</p>
+          ) : null}
+          <p>
+            {shippingAddress.city}, {shippingAddress.state}{' '}
+            {shippingAddress.zipCode}
+          </p>
         </div>
         <div className='purchased-items'>
-          <h3>Purchase Summary</h3>
+          <h2>Items Purchased</h2>
           {renderPurchasedItems(items).map((item, idx) => {
             return <div key={idx}>{item}</div>;
           })}
         </div>
 
         <div className='purchase-billing-info'>
-          <h3>Billing Information</h3>
+          <h2>Billing Information</h2>
           <p>Total ${total}</p>
         </div>
       </StyledMain>
@@ -118,13 +123,49 @@ const UserPurchaseDetails = () => {
 };
 
 const StyledMain = styled.main`
+  h1 {
+    border-bottom: 0.1rem solid #d8d6d5;
+    padding-bottom: 0.8rem;
+    font-size: 2.2rem;
+    margin: 1.6rem 0;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin: 1.6rem 0 0.8rem 0;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+
+    span {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+  }
+
   .purchase-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 0.8rem;
+
     img {
       width: 50px;
     }
+  }
+
+  @media (min-width: 576px) {
+  }
+
+  @media (min-width: 768px) {
+  }
+
+  @media (min-width: 992px) {
+  }
+
+  @media (min-width: 1200px) {
   }
 `;
 
