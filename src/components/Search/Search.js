@@ -10,7 +10,7 @@ const Search = () => {
   let location = useLocation();
 
   useEffect(() => {
-    let url = 'http://localhost:5000/listings';
+    let url = 'https://handmedowns-server.herokuapp.com/listings';
     const getListings = async (url) => {
       try {
         const res = await fetch(url);
@@ -49,7 +49,7 @@ const Search = () => {
         {results.map((listing) => (
           <div className='result' key={listing.uid}>
             <img
-              src={`http://localhost:5000/uploads/images/${listing.image}`}
+              src={`https://handmedowns-server.herokuapp.com/uploads/images/${listing.image}`}
               alt=''
               onClick={() =>
                 history.push(`/listing/${listing.uid}/${listing.slug}`)

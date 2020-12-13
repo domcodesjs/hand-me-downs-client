@@ -11,7 +11,7 @@ const Shop = () => {
   useEffect(() => {
     const getShopListings = async () => {
       const res = await fetch(
-        `http://localhost:5000/listings/shop/${username}`
+        `https://handmedowns-server.herokuapp.com/listings/shop/${username}`
       );
       const data = await res.json();
 
@@ -44,7 +44,7 @@ const Shop = () => {
             {shopListings.map((listing) => (
               <div className='listing' key={listing.uid}>
                 <img
-                  src={`http://localhost:5000/uploads/images/${listing.image}`}
+                  src={`https://handmedowns-server.herokuapp.com/uploads/images/${listing.image}`}
                   alt=''
                   onClick={() =>
                     history.push(`/listing/${listing.uid}/${listing.slug}`)

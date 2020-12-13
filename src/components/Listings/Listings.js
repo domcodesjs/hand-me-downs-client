@@ -10,7 +10,9 @@ const Listings = () => {
   useEffect(() => {
     const getListings = async () => {
       try {
-        const res = await fetch('http://localhost:5000/listings');
+        const res = await fetch(
+          'https://handmedowns-server.herokuapp.com/listings'
+        );
         const data = await res.json();
         return setListings(data.listings);
       } catch (err) {
@@ -28,7 +30,7 @@ const Listings = () => {
         {listings.map((listing) => (
           <div className='listing' key={listing.uid}>
             <img
-              src={`http://localhost:5000/uploads/images/${listing.image}`}
+              src={`https://handmedowns-server.herokuapp.com/uploads/images/${listing.image}`}
               alt=''
               onClick={() =>
                 history.push(`/listing/${listing.uid}/${listing.slug}`)

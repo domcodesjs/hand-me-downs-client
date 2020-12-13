@@ -19,7 +19,9 @@ const EditListingForm = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetch('http://localhost:5000/categories');
+        const res = await fetch(
+          'https://handmedowns-server.herokuapp.com/categories'
+        );
         const data = await res.json();
 
         if (!data.success) {
@@ -39,7 +41,7 @@ const EditListingForm = () => {
       try {
         const JWT = localStorage.getItem('jwt');
         const res = await fetch(
-          `http://localhost:5000/listings/user/update/${listingId}`,
+          `https://handmedowns-server.herokuapp.com/listings/user/update/${listingId}`,
           {
             method: 'GET',
             headers: {
@@ -86,14 +88,17 @@ const EditListingForm = () => {
       }
 
       const JWT = localStorage.getItem('jwt');
-      const res = await fetch(`http://localhost:5000/listings/${listingId}`, {
-        method: 'PATCH',
-        headers: {
-          Authorization: `Bearer ${JWT}`,
-          Accept: 'application/json'
-        },
-        body: formData
-      });
+      const res = await fetch(
+        `https://handmedowns-server.herokuapp.com/listings/${listingId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+            Accept: 'application/json'
+          },
+          body: formData
+        }
+      );
 
       const data = await res.json();
 

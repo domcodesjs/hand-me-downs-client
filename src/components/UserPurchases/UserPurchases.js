@@ -17,13 +17,16 @@ const UserPurchases = () => {
     const getPurchases = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
-        const res = await fetch(`http://localhost:5000/purchases`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${JWT}`,
-            Accept: 'application/json'
+        const res = await fetch(
+          `https://handmedowns-server.herokuapp.com/purchases`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${JWT}`,
+              Accept: 'application/json'
+            }
           }
-        });
+        );
 
         const data = await res.json();
 

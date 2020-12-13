@@ -11,7 +11,9 @@ const Listing = () => {
 
   useEffect(() => {
     const getListing = async () => {
-      const res = await fetch(`http://localhost:5000/listings/${listingId}`);
+      const res = await fetch(
+        `https://handmedowns-server.herokuapp.com/listings/${listingId}`
+      );
       const data = await res.json();
       if (data.listing.slug !== listingSlug) {
         return history.push(
@@ -76,7 +78,7 @@ const Listing = () => {
         <SearchForm></SearchForm>
         <StyledMain>
           <img
-            src={`http://localhost:5000/uploads/images/${listing.image}`}
+            src={`https://handmedowns-server.herokuapp.com/uploads/images/${listing.image}`}
             alt='Product'
           />
           <div className='listing-info'>

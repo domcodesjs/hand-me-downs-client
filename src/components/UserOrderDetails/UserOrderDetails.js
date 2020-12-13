@@ -19,13 +19,16 @@ const UserOrderDetails = () => {
     const getOrder = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
-        const res = await fetch(`http://localhost:5000/orders/${orderId}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${JWT}`,
-            Accept: 'application/json'
+        const res = await fetch(
+          `https://handmedowns-server.herokuapp.com/orders/${orderId}`,
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${JWT}`,
+              Accept: 'application/json'
+            }
           }
-        });
+        );
 
         const data = await res.json();
 
@@ -49,7 +52,7 @@ const UserOrderDetails = () => {
       setError(null);
       const JWT = localStorage.getItem('jwt');
       const res = await fetch(
-        `http://localhost:5000/orders/${orderId}/fulfill`,
+        `https://handmedowns-server.herokuapp.com/orders/${orderId}/fulfill`,
         {
           method: 'POST',
           headers: {
@@ -113,7 +116,7 @@ const UserOrderDetails = () => {
             <div className='order-item' key={idx}>
               <Link to={`/listing/${item.uid}/${item.slug}`}>
                 <img
-                  src={`http://localhost:5000/uploads/images/${item.image}`}
+                  src={`https://handmedowns-server.herokuapp.com/uploads/images/${item.image}`}
                   alt=''
                 />
               </Link>

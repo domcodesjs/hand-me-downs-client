@@ -21,7 +21,7 @@ const UserPurchaseDetails = () => {
       try {
         const JWT = localStorage.getItem('jwt');
         const res = await fetch(
-          `http://localhost:5000/purchases/${purchaseId}`,
+          `https://handmedowns-server.herokuapp.com/purchases/${purchaseId}`,
           {
             method: 'GET',
             headers: {
@@ -60,7 +60,7 @@ const UserPurchaseDetails = () => {
             <div className='purchase-item' key={idx}>
               <Link to={`/listing/${item.uid}/${item.slug}`}>
                 <img
-                  src={`http://localhost:5000/uploads/images/${item.image}`}
+                  src={`https://handmedowns-server.herokuapp.com/uploads/images/${item.image}`}
                   alt=''
                 />
               </Link>

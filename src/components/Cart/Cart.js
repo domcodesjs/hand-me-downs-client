@@ -52,7 +52,7 @@ const Cart = () => {
           {cartItems.map((item) => (
             <div key={item.uid} className='cart-item'>
               <img
-                src={`http://localhost:5000/uploads/images/${item.image}`}
+                src={`https://handmedowns-server.herokuapp.com/uploads/images/${item.image}`}
                 alt='Product'
                 onClick={() =>
                   history.push(`/listing/${item.uid}/${item.slug}`)

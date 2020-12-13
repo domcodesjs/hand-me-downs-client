@@ -13,12 +13,15 @@ export const verifyJWT = () => {
     try {
       if (localStorage.getItem('jwt')) {
         const JWT = localStorage.getItem('jwt');
-        const res = await fetch('http://localhost:5000/auth/verifyJWT', {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${JWT}`
+        const res = await fetch(
+          'https://handmedowns-server.herokuapp.com/auth/verifyJWT',
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${JWT}`
+            }
           }
-        });
+        );
 
         const data = await res.json();
         return dispatch({ type: 'VALID_TOKEN', payload: { data } });
