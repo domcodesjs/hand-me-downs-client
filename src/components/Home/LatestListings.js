@@ -70,6 +70,9 @@ const StyledDiv = styled.div`
 
   .listing {
     h1 {
+      margin-top: 0;
+      margin-bottom: 0;
+      text-align: left;
       font-size: 1.6rem;
       white-space: nowrap;
       overflow: hidden;

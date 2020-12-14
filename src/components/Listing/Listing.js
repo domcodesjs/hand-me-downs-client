@@ -127,6 +127,7 @@ const StyledMain = styled.main`
   margin-top: 3.2rem;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  grid-gap: 1.6rem;
 
   .quick-info {
     display: flex;
