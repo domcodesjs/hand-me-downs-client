@@ -6,6 +6,10 @@
 
 Hand Me Downs is a ficticious marketplace where you can buy and sell used clothing. When a user creates an account they'll be able to buy and sell immediately. When your account is created you automatically get a shop setup at /shop/username where users can go to purchase items from you. When a user purchases an item(s) from you you'll see them under your orders. If you purchase an item(s) you'll see the purchase under your orders.
 
+## Technologies
+
+The front end of Hand Me Downs uses React and Redux.
+
 ## Important Info
 
 ### Test Accounts
@@ -19,10 +23,6 @@ Hand Me Downs is a ficticious marketplace where you can buy and sell used clothi
 - Card #: 4242 4242 4242 4242
 - Expiration: Anything after today.
 - CVC: Any 3 digit number
-
-## Technologies
-
-The front end of Hand Me Downs uses React and Redux.
 
 ## Routes
 
