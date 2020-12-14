@@ -23,46 +23,50 @@ const LatestListings = () => {
     }
 
     return (
-      <StyledDiv>
+      <StyledMain>
         <h1 className='newly-added-title'>Newly Added</h1>
-        {listings.map((listing) => (
-          <div className='listing' key={listing.uid}>
-            <img
-              src={`https://handmedowns-server.herokuapp.com/uploads/images/${listing.image}`}
-              alt=''
-              onClick={() =>
-                history.push(`/listing/${listing.uid}/${listing.slug}`)
-              }
-            />
-            <h1>{listing.title}</h1>
-            <p>${listing.price}</p>
-            <button
-              onClick={() =>
-                history.push(`/listing/${listing.uid}/${listing.slug}`)
-              }
-            >
-              View Details
-            </button>
-          </div>
-        ))}
-      </StyledDiv>
+        <StyledDiv>
+          {listings.map((listing) => (
+            <div className='listing' key={listing.uid}>
+              <img
+                src={`https://handmedowns-server.herokuapp.com/uploads/images/${listing.image}`}
+                alt=''
+                onClick={() =>
+                  history.push(`/listing/${listing.uid}/${listing.slug}`)
+                }
+              />
+              <h1>{listing.title}</h1>
+              <p>${listing.price}</p>
+              <button
+                onClick={() =>
+                  history.push(`/listing/${listing.uid}/${listing.slug}`)
+                }
+              >
+                View Details
+              </button>
+            </div>
+          ))}
+        </StyledDiv>
+      </StyledMain>
     );
   };
 
   return listings ? renderListings() : null;
 };
 
-const StyledDiv = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  grid-gap: 2.4rem 1.6rem;
-
-  .newly-added-title {
+const StyledMain = styled.main`
+  h1 {
     margin-top: 4.8rem;
     margin-bottom: 2.4rem;
     text-align: center;
     font-weight: 600;
   }
+`;
+
+const StyledDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-gap: 2.4rem 1.6rem;
 
   .listing {
     h1 {
