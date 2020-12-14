@@ -11,6 +11,7 @@ const AddListingForm = () => {
   const [categories, setCategories] = useState(null);
   const [price, setPrice] = useState('');
   const [gender, setGender] = useState('');
+  const [processing, setProcessing] = useState(false);
   let history = useHistory();
 
   useEffect(() => {
@@ -37,8 +38,10 @@ const AddListingForm = () => {
     e.preventDefault();
     try {
       setErrors(null);
+      setProcessing(true);
 
       if (!image) {
+        setProcessing(false);
         return setErrors(['You must provide an image']);
       }
 
@@ -66,6 +69,7 @@ const AddListingForm = () => {
       const data = await res.json();
 
       if (!data.success) {
+        setProcessing(false);
         const errors = data.errors.map((err) => err.msg);
         return setErrors(errors);
       }
@@ -141,7 +145,13 @@ const AddListingForm = () => {
           <img src={URL.createObjectURL(image)} alt='photoooo' />
         </>
       ) : null}
-      <button type='submit'>Submit</button>
+      {processing ? (
+        <button type='button' disabled>
+          Processing...
+        </button>
+      ) : (
+        <button type='submit'>Submit</button>
+      )}
     </StyledForm>
   ) : null;
 };

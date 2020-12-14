@@ -12,6 +12,7 @@ const EditListingForm = () => {
   const [gender, setGender] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
+  const [processing, setProcessing] = useState(false);
   const authState = useSelector(({ auth }) => auth);
   let history = useHistory();
   let { listingId } = useParams();
@@ -76,6 +77,7 @@ const EditListingForm = () => {
 
     try {
       setErrors(null);
+      setProcessing(true);
       const formData = new FormData();
       formData.append('title', title);
       formData.append('description', description);
@@ -104,9 +106,10 @@ const EditListingForm = () => {
 
       if (!data.success) {
         const errors = data.errors.map((err) => err.msg);
+        setProcessing(false);
         return setErrors(errors);
       }
-
+      setProcessing(false);
       return history.push(`/your/listings`);
     } catch (err) {
       return history.push('/');
@@ -179,10 +182,21 @@ const EditListingForm = () => {
         </>
       ) : null}
       <div className='edit-form-btns'>
-        <button type='button' onClick={history.goBack}>
-          Cancel
-        </button>
-        <button type='submit'>Submit</button>
+        {processing ? (
+          <>
+            <button type='button' disabled>
+              Cancel
+            </button>
+            <button disabled>Processing...</button>
+          </>
+        ) : (
+          <>
+            <button type='button' onClick={history.goBack}>
+              Cancel
+            </button>
+            <button type='submit'>Submit</button>
+          </>
+        )}
       </div>
     </StyledForm>
   ) : null;
