@@ -10,6 +10,10 @@ Hand Me Downs is a ficticious marketplace where you can buy and sell used clothi
 
 The front end of Hand Me Downs uses React and Redux.
 
+## How to Video
+
+[![How to use Hand Me Down](http://img.youtube.com/vi/OQu32o0MFpQ/0.jpg)](http://www.youtube.com/watch?v=OQu32o0MFpQ 'How to use Hand Me Down')
+
 ## Screenshots
 
 ![Screenshot](https://i.postimg.cc/XYjhVcgf/Screenshot-1.png)
