@@ -14,26 +14,26 @@ The front end of Hand Me Downs uses React and Redux.
 
 ### Public Routes
 
-- **/** landing page that displays the most recent listings
-- **/search** search results page
-- **/login** login page
-- **/signup** sign up page
-- **/listings** view all listings
-- **/shop/:username** view all listings of a specific user by username
-- **/cart** view items you've added to the cart
-- **/listing/:listingId** view details about a single listing
-- **/404** routed here when a page doesn't exist
+- **/** Landing page that displays the most recent listings
+- **/search** Search results page
+- **/login** Login page
+- **/signup** Sign up page
+- **/listings** View all listings
+- **/shop/:username** View all listings of a specific user by username
+- **/cart** View items you've added to the cart
+- **/listing/:listingId** View details about a single listing
+- **/404** Routed here when a page doesn't exist
 
 ### Authenticated Routes
 
-- **/checkout** checkout page
-- **/your/listings/new** create a new listing
-- **/your/orders** view all of your orders
-- **/your/order/:orderId** view details about a single order
-- **/your/purchase/:purchaseId** view details about a single purchase
-- **/your/listings** view all of your own listings
-- **/your/purchases** view all of the purchases you've made
-- **/your/listings/:listingId/edit** edit a listing you've made
+- **/checkout** Checkout page
+- **/your/listings/new** Create a new listing
+- **/your/orders** View all of your orders
+- **/your/order/:orderId** View details about a single order
+- **/your/purchase/:purchaseId** View details about a single purchase
+- **/your/listings** View all of your own listings
+- **/your/purchases** View all of the purchases you've made
+- **/your/listings/:listingId/edit** Edit a listing you've made
 
 ## How to Video
 
