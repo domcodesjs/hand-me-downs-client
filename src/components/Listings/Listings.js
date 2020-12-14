@@ -25,7 +25,7 @@ const Listings = () => {
   return listings ? (
     <StyledMain>
       <SearchForm></SearchForm>
-      <h1>All Listings</h1>
+      <h1 className='listing-title'>All Listings</h1>
       <div className='listings'>
         {listings.map((listing) => (
           <div className='listing' key={listing.uid}>
@@ -53,7 +53,7 @@ const Listings = () => {
 };
 
 const StyledMain = styled.main`
-  h1 {
+  .listing-title {
     border-bottom: 0.1rem solid #d8d6d5;
     padding-bottom: 0.8rem;
     font-size: 2.2rem;
@@ -62,16 +62,13 @@ const StyledMain = styled.main`
 
   .listings {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     grid-gap: 2.4rem 1.6rem;
   }
 
   .listing {
     h1 {
       font-size: 1.6rem;
-      border-bottom: none;
-      padding-bottom: 0;
-      margin: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -86,7 +83,6 @@ const StyledMain = styled.main`
     img {
       width: 100%;
       cursor: pointer;
-      max-height: 12rem;
     }
 
     button {
@@ -97,24 +93,6 @@ const StyledMain = styled.main`
       border-radius: 0.4rem;
       color: #fff;
       font-size: 1.4rem;
-    }
-  }
-
-  @media (min-width: 576px) {
-    .listings {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .listing {
-      img {
-        max-height: 100%;
-      }
-    }
-  }
-
-  @media (min-width: 992px) {
-    .listings {
-      grid-template-columns: repeat(4, 1fr);
     }
   }
 `;

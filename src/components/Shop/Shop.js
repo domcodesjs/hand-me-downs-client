@@ -81,7 +81,7 @@ const StyledMain = styled.main`
 
 const StyledDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 2.4rem 1.6rem;
 
   .listing {
@@ -105,7 +105,6 @@ const StyledDiv = styled.div`
     img {
       width: 100%;
       cursor: pointer;
-      max-height: 12rem;
     }
 
     button {
@@ -117,19 +116,6 @@ const StyledDiv = styled.div`
       color: #fff;
       font-size: 1.4rem;
     }
-  }
-
-  @media (min-width: 576px) {
-    grid-template-columns: repeat(3, 1fr);
-    .listing {
-      img {
-        max-height: 100%;
-      }
-    }
-  }
-
-  @media (min-width: 992px) {
-    grid-template-columns: repeat(4, 1fr);
   }
 `;
 

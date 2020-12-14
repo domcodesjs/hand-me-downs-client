@@ -91,7 +91,7 @@ const StyledMain = styled.main`
 
   .results {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     grid-gap: 2.4rem 1.6rem;
   }
 
@@ -115,7 +115,6 @@ const StyledMain = styled.main`
     img {
       width: 100%;
       cursor: pointer;
-      max-height: 12rem;
     }
 
     button {
@@ -126,24 +125,6 @@ const StyledMain = styled.main`
       border-radius: 0.4rem;
       color: #fff;
       font-size: 1.4rem;
-    }
-  }
-
-  @media (min-width: 576px) {
-    .results {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .listing {
-      img {
-        max-height: 100%;
-      }
-    }
-  }
-
-  @media (min-width: 992px) {
-    .results {
-      grid-template-columns: repeat(4, 1fr);
     }
   }
 `;

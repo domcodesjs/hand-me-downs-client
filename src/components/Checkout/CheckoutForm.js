@@ -37,9 +37,8 @@ const CheckoutForm = () => {
       return;
     }
 
-    setProcessing(true);
-
     try {
+      setProcessing(true);
       const payload = await stripe.createPaymentMethod({
         type: 'card',
         card: elements.getElement(CardElement)
