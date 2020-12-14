@@ -12,13 +12,13 @@ The front end of Hand Me Downs uses React and Redux.
 
 ## Screenshots
 
-![Screenshot](https://i.ibb.co/GnYgfWK/Screenshot-7.png)
-![Screenshot](https://i.ibb.co/GkNLz1M/Screenshot-6.png)
-![Screenshot](https://i.ibb.co/DLvbJzf/Screenshot-5.png)
-![Screenshot](https://i.ibb.co/YWNMWwL/Screenshot-4.png)
-![Screenshot](https://i.ibb.co/F47ydXD/Screenshot-3.png)
-![Screenshot](https://i.ibb.co/MSq8w5P/Screenshot-2.png)
-![Screenshot](https://i.ibb.co/f1TwBXG/Screenshot-1.png)
-![Screenshot](https://i.ibb.co/cNKtDMq/Screenshot-10.png)
-![Screenshot](https://i.ibb.co/rM3L1bL/Screenshot-9.png)
-![Screenshot](https://i.ibb.co/qdXVfWv/Screenshot-8.png)
+![Screenshot](https://i.postimg.cc/XYjhVcgf/Screenshot-1.png)
+![Screenshot](https://i.postimg.cc/j5wmpx4B/Screenshot-2.png)
+![Screenshot](https://i.postimg.cc/3N26wt6B/Screenshot-3.png)
+![Screenshot](https://i.postimg.cc/qv1Fghm9/Screenshot-4.png)
+![Screenshot](https://i.postimg.cc/gch140JZ/Screenshot-5.png)
+![Screenshot](https://i.postimg.cc/nctgWtjw/Screenshot-6.png)
+![Screenshot](https://i.postimg.cc/kXFz3hWM/Screenshot-7.png)
+![Screenshot](https://i.postimg.cc/zff9kSbz/Screenshot-8.png)
+![Screenshot](https://i.postimg.cc/VNH2Zrnj/Screenshot-9.png)
+![Screenshot](https://i.postimg.cc/ZRG2ZGfn/Screenshot-10.png)
