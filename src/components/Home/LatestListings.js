@@ -19,11 +19,12 @@ const LatestListings = () => {
 
   const renderListings = () => {
     if (!listings.length) {
-      return <p>No Listings</p>;
+      return null;
     }
 
     return (
       <StyledDiv>
+        <h1 className='newly-added-title'>Newly Added</h1>
         {listings.map((listing) => (
           <div className='listing' key={listing.uid}>
             <img
@@ -55,6 +56,13 @@ const StyledDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-gap: 2.4rem 1.6rem;
+
+  .newly-added-title {
+    margin-top: 4.8rem;
+    margin-bottom: 2.4rem;
+    text-align: center;
+    font-weight: 600;
+  }
 
   .listing {
     h1 {
