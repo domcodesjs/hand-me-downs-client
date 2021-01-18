@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import styled from 'styled-components';
+import { API_URL } from '../../config';
 
 const UserOrders = () => {
   const [orders, setOrders] = useState(null);
@@ -17,16 +18,13 @@ const UserOrders = () => {
     const getOrders = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
-        const res = await fetch(
-          `https://handmedowns-server.herokuapp.com/orders`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${JWT}`,
-              Accept: 'application/json'
-            }
+        const res = await fetch(`${API_URL}/orders`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+            Accept: 'application/json'
           }
-        );
+        });
         const data = await res.json();
         return setOrders(data.orders);
       } catch (err) {

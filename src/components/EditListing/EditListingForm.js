@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { API_URL } from '../../config';
 
 const EditListingForm = () => {
   const [errors, setErrors] = useState(null);
@@ -20,9 +21,7 @@ const EditListingForm = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetch(
-          'https://handmedowns-server.herokuapp.com/categories'
-        );
+        const res = await fetch(`${API_URL}/categories`);
         const data = await res.json();
 
         if (!data.success) {
@@ -42,7 +41,7 @@ const EditListingForm = () => {
       try {
         const JWT = localStorage.getItem('jwt');
         const res = await fetch(
-          `https://handmedowns-server.herokuapp.com/listings/user/update/${listingId}`,
+          `${API_URL}/listings/user/update/${listingId}`,
           {
             method: 'GET',
             headers: {
@@ -90,17 +89,14 @@ const EditListingForm = () => {
       }
 
       const JWT = localStorage.getItem('jwt');
-      const res = await fetch(
-        `https://handmedowns-server.herokuapp.com/listings/${listingId}`,
-        {
-          method: 'PATCH',
-          headers: {
-            Authorization: `Bearer ${JWT}`,
-            Accept: 'application/json'
-          },
-          body: formData
-        }
-      );
+      const res = await fetch(`${API_URL}/listings/${listingId}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${JWT}`,
+          Accept: 'application/json'
+        },
+        body: formData
+      });
 
       const data = await res.json();
 

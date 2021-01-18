@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { API_URL } from '../../config';
 import SearchForm from '../SearchForm/SearchForm';
 
 const Shop = () => {
@@ -10,9 +11,7 @@ const Shop = () => {
 
   useEffect(() => {
     const getShopListings = async () => {
-      const res = await fetch(
-        `https://handmedowns-server.herokuapp.com/listings/shop/${username}`
-      );
+      const res = await fetch(`${API_URL}/listings/shop/${username}`);
       const data = await res.json();
 
       if (!data || !data.success) {
@@ -44,7 +43,7 @@ const Shop = () => {
             {shopListings.map((listing) => (
               <div className='listing' key={listing.uid}>
                 <img
-                  src={`https://handmedowns-server.herokuapp.com/uploads/images/${listing.image}`}
+                  src={`${API_URL}/uploads/images/${listing.image}`}
                   alt=''
                   onClick={() =>
                     history.push(`/listing/${listing.uid}/${listing.slug}`)

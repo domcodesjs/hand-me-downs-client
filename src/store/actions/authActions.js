@@ -1,3 +1,5 @@
+import { API_URL } from '../../config';
+
 export const signIn = (user) => {
   return async (dispatch) =>
     dispatch({ type: 'LOGIN_SUCCESS', payload: { user } });
@@ -13,15 +15,12 @@ export const verifyJWT = () => {
     try {
       if (localStorage.getItem('jwt')) {
         const JWT = localStorage.getItem('jwt');
-        const res = await fetch(
-          'https://handmedowns-server.herokuapp.com/auth/verifyJWT',
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${JWT}`
-            }
+        const res = await fetch(`${API_URL}/auth/verifyJWT`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${JWT}`
           }
-        );
+        });
 
         const data = await res.json();
         return dispatch({ type: 'VALID_TOKEN', payload: { data } });

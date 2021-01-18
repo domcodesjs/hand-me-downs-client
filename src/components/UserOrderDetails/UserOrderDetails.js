@@ -3,6 +3,7 @@ import { useParams, useHistory, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { format } from 'date-fns';
+import { API_URL } from '../../config';
 
 const UserOrderDetails = () => {
   const [error, setError] = useState(null);
@@ -19,16 +20,13 @@ const UserOrderDetails = () => {
     const getOrder = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
-        const res = await fetch(
-          `https://handmedowns-server.herokuapp.com/orders/${orderId}`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${JWT}`,
-              Accept: 'application/json'
-            }
+        const res = await fetch(`${API_URL}/orders/${orderId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+            Accept: 'application/json'
           }
-        );
+        });
 
         const data = await res.json();
 
@@ -51,17 +49,14 @@ const UserOrderDetails = () => {
     try {
       setError(null);
       const JWT = localStorage.getItem('jwt');
-      const res = await fetch(
-        `https://handmedowns-server.herokuapp.com/orders/${orderId}/fulfill`,
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${JWT}`,
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          }
+      const res = await fetch(`${API_URL}/orders/${orderId}/fulfill`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${JWT}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
         }
-      );
+      });
 
       const data = await res.json();
 
@@ -115,10 +110,7 @@ const UserOrderDetails = () => {
           {order.order_items.map((item, idx) => (
             <div className='order-item' key={idx}>
               <Link to={`/listing/${item.uid}/${item.slug}`}>
-                <img
-                  src={`https://handmedowns-server.herokuapp.com/uploads/images/${item.image}`}
-                  alt=''
-                />
+                <img src={`${API_URL}/uploads/images/${item.image}`} alt='' />
               </Link>
               <p>
                 <Link to={`/listing/${item.uid}/${item.slug}`}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { API_URL } from '../../config';
 
 const LatestListings = () => {
   const [listings, setListings] = useState(null);
@@ -8,9 +9,7 @@ const LatestListings = () => {
 
   useEffect(() => {
     const getListings = async () => {
-      const res = await fetch(
-        `https://handmedowns-server.herokuapp.com/listings/app/latest`
-      );
+      const res = await fetch(`${API_URL}/listings/app/latest`);
       const data = await res.json();
       return setListings(data.listings);
     };
@@ -29,7 +28,7 @@ const LatestListings = () => {
           {listings.map((listing) => (
             <div className='listing' key={listing.uid}>
               <img
-                src={`https://handmedowns-server.herokuapp.com/uploads/images/${listing.image}`}
+                src={`${API_URL}/uploads/images/${listing.image}`}
                 alt=''
                 onClick={() =>
                   history.push(`/listing/${listing.uid}/${listing.slug}`)

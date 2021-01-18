@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { API_URL } from '../../config';
 
 const UserPurchaseDetails = () => {
   const [purchase, setPurchase] = useState(null);
@@ -20,16 +21,13 @@ const UserPurchaseDetails = () => {
     const getPurchase = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
-        const res = await fetch(
-          `https://handmedowns-server.herokuapp.com/purchases/${purchaseId}`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${JWT}`,
-              Accept: 'application/json'
-            }
+        const res = await fetch(`${API_URL}/purchases/${purchaseId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${JWT}`,
+            Accept: 'application/json'
           }
-        );
+        });
         const data = await res.json();
 
         if (!data.success) {
@@ -59,10 +57,7 @@ const UserPurchaseDetails = () => {
           {items[key]['items'].map((item, idx) => (
             <div className='purchase-item' key={idx}>
               <Link to={`/listing/${item.uid}/${item.slug}`}>
-                <img
-                  src={`https://handmedowns-server.herokuapp.com/uploads/images/${item.image}`}
-                  alt=''
-                />
+                <img src={`${API_URL}/uploads/images/${item.image}`} alt='' />
               </Link>
               <p>
                 <Link to={`/listing/${item.uid}/${item.slug}`}>

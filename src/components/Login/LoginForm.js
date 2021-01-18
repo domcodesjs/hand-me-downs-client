@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { API_URL } from '../../config';
 import { signIn } from '../../store/actions/authActions';
 
 const LoginForm = () => {
@@ -24,16 +25,13 @@ const LoginForm = () => {
 
     try {
       setErrors(null);
-      const res = await fetch(
-        'https://handmedowns-server.herokuapp.com/auth/login',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ email, password })
-        }
-      );
+      const res = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
 
       const data = await res.json();
 

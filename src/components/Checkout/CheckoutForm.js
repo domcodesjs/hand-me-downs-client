@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import styled from 'styled-components';
+import { API_URL } from '../../config';
 
 const CheckoutForm = () => {
   const [cardComplete, setCardComplete] = useState(false);
@@ -45,29 +46,26 @@ const CheckoutForm = () => {
       });
       const JWT = localStorage.getItem('jwt');
 
-      const res = await fetch(
-        'https://handmedowns-server.herokuapp.com/orders/charge',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${JWT}`,
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            items: JSON.parse(localStorage.getItem('cart')),
-            paymentMethod: payload.paymentMethod,
-            address: {
-              fullName,
-              addressOne,
-              addressTwo: addressTwo.trim(),
-              zipCode,
-              city,
-              state
-            }
-          })
-        }
-      );
+      const res = await fetch(`${API_URL}/orders/charge`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${JWT}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          items: JSON.parse(localStorage.getItem('cart')),
+          paymentMethod: payload.paymentMethod,
+          address: {
+            fullName,
+            addressOne,
+            addressTwo: addressTwo.trim(),
+            zipCode,
+            city,
+            state
+          }
+        })
+      });
       const data = await res.json();
 
       setProcessing(false);

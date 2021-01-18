@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import queryString from 'query-string';
+import { API_URL } from '../../config';
 import SearchForm from '../SearchForm/SearchForm';
 
 const Search = () => {
@@ -10,7 +11,7 @@ const Search = () => {
   let location = useLocation();
 
   useEffect(() => {
-    let url = 'https://handmedowns-server.herokuapp.com/listings';
+    let url = `${API_URL}/listings`;
     const getListings = async (url) => {
       try {
         const res = await fetch(url);
@@ -49,7 +50,7 @@ const Search = () => {
         {results.map((listing) => (
           <div className='result' key={listing.uid}>
             <img
-              src={`https://handmedowns-server.herokuapp.com/uploads/images/${listing.image}`}
+              src={`${API_URL}/uploads/images/${listing.image}`}
               alt=''
               onClick={() =>
                 history.push(`/listing/${listing.uid}/${listing.slug}`)

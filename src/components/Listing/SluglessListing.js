@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { API_URL } from '../../config';
 
 const SluglessListing = () => {
   let { listingId } = useParams();
@@ -8,9 +9,7 @@ const SluglessListing = () => {
   useEffect(() => {
     const checkListing = async () => {
       try {
-        const res = await fetch(
-          `https://handmedowns-server.herokuapp.com/listings/check/${listingId}`
-        );
+        const res = await fetch(`${API_URL}/listings/check/${listingId}`);
         const data = await res.json();
 
         if (!data.success) {

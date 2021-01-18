@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { API_URL } from '../../config';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState(null);
@@ -52,7 +53,7 @@ const Cart = () => {
           {cartItems.map((item) => (
             <div key={item.uid} className='cart-item'>
               <img
-                src={`https://handmedowns-server.herokuapp.com/uploads/images/${item.image}`}
+                src={`${API_URL}/uploads/images/${item.image}`}
                 alt='Product'
                 onClick={() =>
                   history.push(`/listing/${item.uid}/${item.slug}`)
