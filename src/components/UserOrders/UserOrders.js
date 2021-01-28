@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 import { API_URL } from '../../config';
 
 const UserOrders = () => {
   const [orders, setOrders] = useState(null);
-  const authState = useSelector(({ auth }) => auth);
   let history = useHistory();
 
   useEffect(() => {
-    if (!authState.user) {
-      return history.push('/login');
-    }
-
     const getOrders = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
@@ -33,7 +27,7 @@ const UserOrders = () => {
     };
 
     getOrders();
-  }, [authState.user, history]);
+  }, [history]);
 
   const renderOrders = () => {
     return (
@@ -67,7 +61,7 @@ const UserOrders = () => {
     );
   };
 
-  return orders ? renderOrders() : <p>asdfsdf</p>;
+  return orders ? renderOrders() : null;
 };
 
 const StyledMain = styled.main`
