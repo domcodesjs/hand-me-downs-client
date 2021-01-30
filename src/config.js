@@ -1,1 +1,1 @@
-export const API_URL = 'https://handmedowns-server.herokuapp.com';
+export const API_URL = 'https://api.handmedowns.xyz';
