@@ -63,7 +63,7 @@ const EditListingForm = () => {
         setDescription(data.listing.description);
         setCategory(data.listing.category);
         setGender(data.listing.gender);
-        setPrice(data.listing.price);
+        setPrice((data.listing.price / 100).toFixed(2));
       } catch (err) {
         return history.push('/');
       }

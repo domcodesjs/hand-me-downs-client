@@ -96,7 +96,7 @@ const UserListings = () => {
                   >
                     {listing.title}
                   </h2>
-                  <p>${listing.price}</p>
+                  <p>${(listing.price / 100).toFixed(2)}</p>
                 </div>
               </div>
             </div>
@@ -146,7 +146,7 @@ const UserListings = () => {
                   >
                     {listing.title}
                   </h2>
-                  <p>${listing.price}</p>
+                  <p>${(listing.price / 100).toFixed(2)}</p>
                 </div>
               </div>
 

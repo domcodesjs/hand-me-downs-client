@@ -81,7 +81,7 @@ const Listing = () => {
           <div className='listing-info'>
             <div className='quick-info'>
               <h1>{listing.title}</h1>
-              <p>${listing.price}</p>
+              <p>${(listing.price / 100).toFixed(2)}</p>
             </div>
 
             <Link

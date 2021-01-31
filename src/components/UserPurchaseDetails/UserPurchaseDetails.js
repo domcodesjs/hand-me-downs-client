@@ -66,7 +66,7 @@ const UserPurchaseDetails = () => {
                     : item.title}
                 </Link>
               </p>
-              <p>${item.price}</p>
+              <p>${item.price / 100}</p>
             </div>
           ))}
         </>

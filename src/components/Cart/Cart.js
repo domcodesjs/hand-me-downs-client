@@ -67,7 +67,7 @@ const Cart = () => {
                 {item.title}
               </h3>
               <p>
-                ${item.price}
+                ${item.price / 100}
                 <span onClick={() => handleClick(item.uid)}>X</span>
               </p>
             </div>
