@@ -18,14 +18,15 @@ const AddListingForm = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetch(`${API_URL}/categories`);
-        const data = await res.json();
+        // const res = await fetch(`${API_URL}/categories`);
+        // const data = await res.json();
 
-        if (!data.success) {
-          return;
-        }
+        // if (!data.success) {
+        //   return;
+        // }
 
-        return setCategories(data.categories);
+        // return setCategories(data.categories);
+        return setCategories(['T-Shirts', 'Sweaters', 'Jeans']);
       } catch (err) {
         return history.push('/');
       }
@@ -70,9 +71,7 @@ const AddListingForm = () => {
         return setErrors(errors);
       }
 
-      return history.push(
-        `/listing/${data.listing.listing_uid}/${data.listing.listing_slug}`
-      );
+      return history.push(`/listing/${data.listing.id}/${data.listing.slug}`);
     } catch (err) {
       return history.push('/');
     }
@@ -122,8 +121,8 @@ const AddListingForm = () => {
       >
         <option disabled value={''}></option>
         {categories.map((category, idx) => (
-          <option key={idx} value={category.name}>
-            {category.name}
+          <option key={idx} value={category}>
+            {category}
           </option>
         ))}
       </select>

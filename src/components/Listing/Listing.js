@@ -15,14 +15,12 @@ const Listing = () => {
       const res = await fetch(`${API_URL}/listings/${listingId}`);
       const data = await res.json();
       if (data.listing.slug !== listingSlug) {
-        return history.push(
-          `/listing/${data.listing.uid}/${data.listing.slug}`
-        );
+        return history.push(`/listing/${data.listing.id}/${data.listing.slug}`);
       }
 
       if (localStorage.getItem('cart')) {
         const cart = JSON.parse(localStorage.getItem('cart'));
-        const itemExists = cart.find((item) => item.uid === data.listing.uid);
+        const itemExists = cart.find((item) => item.id === data.listing.id);
 
         if (itemExists) {
           setAdded(true);
@@ -41,7 +39,7 @@ const Listing = () => {
     }
 
     const cart = JSON.parse(localStorage.getItem('cart'));
-    const itemExists = cart.find((item) => item.uid === listing.uid);
+    const itemExists = cart.find((item) => item.id === listing.id);
 
     if (itemExists) {
       return;
@@ -57,7 +55,7 @@ const Listing = () => {
     }
 
     const filteredCart = JSON.parse(localStorage.getItem('cart')).filter(
-      (item) => item.uid !== listing.uid
+      (item) => item.id !== listing.id
     );
     localStorage.setItem('cart', JSON.stringify(filteredCart));
     return setAdded(false);
@@ -88,9 +86,9 @@ const Listing = () => {
 
             <Link
               className='listing-seller'
-              to={`/shop/${listing.sellerUsername}`}
+              to={`/shop/${listing.user.username}`}
             >
-              {listing.sellerUsername}
+              {listing.user.username}
             </Link>
 
             {listing.sold ? (
