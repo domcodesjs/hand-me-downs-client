@@ -55,7 +55,7 @@ const UserListings = () => {
       }
 
       return setShopListings(
-        shopListings.filter((listing) => listing.uid !== data.uid)
+        shopListings.filter((listing) => listing.id !== data.listing.id)
       );
     } catch (err) {
       return history.push('/');
@@ -79,19 +79,19 @@ const UserListings = () => {
       <>
         <div className='shop-listings'>
           {filteredListings.map((listing) => (
-            <div key={listing.uid} className='shop-item'>
+            <div key={listing.id} className='shop-item'>
               <div className='shop-item-left'>
                 <img
                   src={`${API_URL}/uploads/images/${listing.image}`}
                   alt={listing.title}
                   onClick={() =>
-                    history.push(`/listing/${listing.uid}/${listing.slug}`)
+                    history.push(`/listing/${listing.id}/${listing.slug}`)
                   }
                 />
                 <div>
                   <h2
                     onClick={() =>
-                      history.push(`/listing/${listing.uid}/${listing.slug}`)
+                      history.push(`/listing/${listing.id}/${listing.slug}`)
                     }
                   >
                     {listing.title}
@@ -129,19 +129,19 @@ const UserListings = () => {
       <>
         <div className='shop-listings'>
           {filteredListings.map((listing) => (
-            <div key={listing.uid} className='shop-item'>
+            <div key={listing.id} className='shop-item'>
               <div className='shop-item-left'>
                 <img
                   src={`${API_URL}/uploads/images/${listing.image}`}
                   alt={listing.title}
                   onClick={() =>
-                    history.push(`/listing/${listing.uid}/${listing.slug}`)
+                    history.push(`/listing/${listing.id}/${listing.slug}`)
                   }
                 />
                 <div>
                   <h2
                     onClick={() =>
-                      history.push(`/listing/${listing.uid}/${listing.slug}`)
+                      history.push(`/listing/${listing.id}/${listing.slug}`)
                     }
                   >
                     {listing.title}
@@ -156,7 +156,7 @@ const UserListings = () => {
                     src={editIcon}
                     alt='Edit'
                     onClick={() =>
-                      history.push(`/your/listings/${listing.uid}/edit`)
+                      history.push(`/your/listings/${listing.id}/edit`)
                     }
                   />
                 </button>
@@ -164,7 +164,7 @@ const UserListings = () => {
                   <img
                     src={trashIcon}
                     alt='Delete'
-                    onClick={() => handleDelete(listing.uid)}
+                    onClick={() => handleDelete(listing.id)}
                   />
                 </button>
               </div>

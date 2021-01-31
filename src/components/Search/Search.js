@@ -48,19 +48,19 @@ const Search = () => {
     return (
       <div className='results'>
         {results.map((listing) => (
-          <div className='result' key={listing.uid}>
+          <div className='result' key={listing.id}>
             <img
               src={`${API_URL}/uploads/images/${listing.image}`}
               alt=''
               onClick={() =>
-                history.push(`/listing/${listing.uid}/${listing.slug}`)
+                history.push(`/listing/${listing.id}/${listing.slug}`)
               }
             />
             <h1>{listing.title}</h1>
             <p>${listing.price}</p>
             <button
               onClick={() =>
-                history.push(`/listing/${listing.uid}/${listing.slug}`)
+                history.push(`/listing/${listing.id}/${listing.slug}`)
               }
             >
               View Details

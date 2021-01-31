@@ -21,14 +21,15 @@ const EditListingForm = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const res = await fetch(`${API_URL}/categories`);
-        const data = await res.json();
+        // const res = await fetch(`${API_URL}/categories`);
+        // const data = await res.json();
 
-        if (!data.success) {
-          return;
-        }
+        // if (!data.success) {
+        //   return;
+        // }
 
-        return setCategories(data.categories);
+        // return setCategories(data.categories);
+        return setCategories(['T-Shirts', 'Sweaters', 'Jeans']);
       } catch (err) {
         return history.push('/');
       }
@@ -165,8 +166,8 @@ const EditListingForm = () => {
       >
         <option disabled value={''}></option>
         {categories.map((category, idx) => (
-          <option key={idx} value={category.name}>
-            {category.name}
+          <option key={idx} value={category}>
+            {category}
           </option>
         ))}
       </select>
