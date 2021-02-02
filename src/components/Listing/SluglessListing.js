@@ -11,7 +11,7 @@ const SluglessListing = () => {
       try {
         const res = await fetch(`${API_URL}/listings/check/${listingId}`);
         const data = await res.json();
-        console.log(data);
+
         if (!data.success) {
           return history.push('/404');
         }
