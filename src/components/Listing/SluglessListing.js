@@ -11,14 +11,12 @@ const SluglessListing = () => {
       try {
         const res = await fetch(`${API_URL}/listings/check/${listingId}`);
         const data = await res.json();
-
+        console.log(data);
         if (!data.success) {
           return history.push('/404');
         }
 
-        return history.push(
-          `/listing/${data.listing.uid}/${data.listing.slug}`
-        );
+        return history.push(`/listing/${data.listing.id}/${data.listing.slug}`);
       } catch (err) {
         return history.push('/404');
       }

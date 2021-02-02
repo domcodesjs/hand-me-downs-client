@@ -34,6 +34,8 @@ const UserOrderDetails = () => {
           return history.push('/');
         }
 
+        console.log(data);
+
         return setOrder(data.order);
       } catch (err) {
         return history.push('/');
@@ -78,10 +80,10 @@ const UserOrderDetails = () => {
       city,
       state,
       zipCode
-    } = order.order_shipping_address;
+    } = order.shipping_address;
     return (
       <>
-        <h1>Order #{order.order_uid}</h1>
+        <h1>Order #{order.id}</h1>
         {error ? (
           <StyledError>
             <p>
@@ -92,7 +94,7 @@ const UserOrderDetails = () => {
         ) : null}
         <h2>Purchase Summary</h2>
         <p>
-          Order created on {format(new Date(order.order_created), 'MM/dd/yyyy')}
+          Order created on {format(new Date(order.created_at), 'MM/dd/yyyy')}
         </p>
 
         <div className='order-shipping-info'>
@@ -107,28 +109,28 @@ const UserOrderDetails = () => {
 
         <div>
           <h2>Items Ordered</h2>
-          {order.order_items.map((item, idx) => (
+          {order.items.map((item, idx) => (
             <div className='order-item' key={idx}>
-              <Link to={`/listing/${item.uid}/${item.slug}`}>
+              <Link to={`/listing/${item.id}/${item.slug}`}>
                 <img src={`${API_URL}/uploads/images/${item.image}`} alt='' />
               </Link>
               <p>
-                <Link to={`/listing/${item.uid}/${item.slug}`}>
+                <Link to={`/listing/${item.id}/${item.slug}`}>
                   {item.title.length > 21
                     ? item.title.substring(0, 18) + '...'
                     : item.title}
                 </Link>
               </p>
-              <p>${item.price}</p>
+              <p>${item.price / 100}</p>
             </div>
           ))}
         </div>
 
         <div className='order-status'>
           <h2>Order Status</h2>
-          <p>{order.order_status}</p>
+          <p>{order.shipped ? 'Fulfilled' : 'Not Fulfilled'}</p>
         </div>
-        {order.order_status === 'Pending Shipment' ? (
+        {!order.shipped ? (
           <form onSubmit={handleSubmit} className='order-change-form'>
             <button type='submit'>Fulfill Order</button>
           </form>

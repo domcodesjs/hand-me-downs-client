@@ -46,7 +46,7 @@ const CheckoutForm = () => {
       });
       const JWT = localStorage.getItem('jwt');
 
-      const res = await fetch(`${API_URL}/orders/charge`, {
+      const res = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${JWT}`,
@@ -75,7 +75,7 @@ const CheckoutForm = () => {
       }
 
       localStorage.setItem('cart', JSON.stringify([]));
-      return history.push(`/your/purchase/${data.purchase.uid}`);
+      return history.push(`/your/purchase/${data.purchase.id}`);
     } catch (err) {
       setProcessing(false);
       return history.push('/');

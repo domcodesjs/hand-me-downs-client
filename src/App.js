@@ -28,6 +28,7 @@ import UserPurchases from './components/UserPurchases/UserPurchases';
 import UserOrders from './components/UserOrders/UserOrders';
 import UserOrderDetails from './components/UserOrderDetails/UserOrderDetails';
 import UserPurchaseDetails from './components/UserPurchaseDetails/UserPurchaseDetails';
+import PrivateRoute from './PrivateRoute';
 import Search from './components/Search/Search';
 
 const App = () => {
@@ -78,34 +79,50 @@ const App = () => {
             <Route exact path='/cart'>
               <Cart></Cart>
             </Route>
-            <Route exact path='/checkout'>
-              <Checkout></Checkout>
-            </Route>
             <Route exact path='/search'>
               <Search></Search>
             </Route>
+            <PrivateRoute
+              exact
+              path='/checkout'
+              component={Checkout}
+            ></PrivateRoute>
             {/* /your Routes */}
-            <Route exact path='/your/listings/new'>
-              <AddListing></AddListing>
-            </Route>
-            <Route exact path='/your/orders'>
-              <UserOrders></UserOrders>
-            </Route>
-            <Route exact path='/your/order/:orderId'>
-              <UserOrderDetails></UserOrderDetails>
-            </Route>
-            <Route exact path='/your/purchase/:purchaseId'>
-              <UserPurchaseDetails></UserPurchaseDetails>
-            </Route>
-            <Route exact path='/your/listings'>
-              <UserListings></UserListings>
-            </Route>
-            <Route exact path='/your/purchases'>
-              <UserPurchases></UserPurchases>
-            </Route>
-            <Route exact path='/your/listings/:listingId/edit'>
-              <EditListing></EditListing>
-            </Route>
+            <PrivateRoute
+              exact
+              path='/your/listings/new'
+              component={AddListing}
+            ></PrivateRoute>
+            <PrivateRoute
+              exact
+              path='/your/orders'
+              component={UserOrders}
+            ></PrivateRoute>
+            <PrivateRoute
+              exact
+              path='/your/order/:orderId'
+              component={UserOrderDetails}
+            ></PrivateRoute>
+            <PrivateRoute
+              exact
+              path='/your/purchase/:purchaseId'
+              component={UserPurchaseDetails}
+            ></PrivateRoute>
+            <PrivateRoute
+              exact
+              path='/your/listings'
+              component={UserListings}
+            ></PrivateRoute>
+            <PrivateRoute
+              exact
+              path='/your/purchases'
+              component={UserPurchases}
+            ></PrivateRoute>
+            <PrivateRoute
+              exact
+              path='/your/listings/:listingId/edit'
+              component={EditListing}
+            ></PrivateRoute>
             <Route path='/404'>
               <NotFound></NotFound>
             </Route>

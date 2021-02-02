@@ -18,9 +18,9 @@ const Cart = () => {
     return setCartItems([]);
   }, []);
 
-  const handleClick = (uid) => {
+  const handleClick = (id) => {
     const filteredCart = JSON.parse(localStorage.getItem('cart')).filter(
-      (item) => item.uid !== uid
+      (item) => item.id !== id
     );
     localStorage.setItem('cart', JSON.stringify(filteredCart));
     return setCartItems(filteredCart);
@@ -40,7 +40,9 @@ const Cart = () => {
       <StyledMain>
         <h1>
           Your Cart $
-          {cartItems.reduce((a, c) => (a += parseFloat(c.price)), 0).toFixed(2)}
+          {cartItems
+            .reduce((a, c) => (a += parseFloat(c.price / 100)), 0)
+            .toFixed(2)}
         </h1>
         {!authState.user ? (
           <button onClick={() => history.push('/login')}>
@@ -51,24 +53,20 @@ const Cart = () => {
         )}
         <div className='cart-items'>
           {cartItems.map((item) => (
-            <div key={item.uid} className='cart-item'>
+            <div key={item.id} className='cart-item'>
               <img
                 src={`${API_URL}/uploads/images/${item.image}`}
                 alt='Product'
-                onClick={() =>
-                  history.push(`/listing/${item.uid}/${item.slug}`)
-                }
+                onClick={() => history.push(`/listing/${item.id}/${item.slug}`)}
               />
               <h3
-                onClick={() =>
-                  history.push(`/listing/${item.uid}/${item.slug}`)
-                }
+                onClick={() => history.push(`/listing/${item.id}/${item.slug}`)}
               >
                 {item.title}
               </h3>
               <p>
-                ${item.price}
-                <span onClick={() => handleClick(item.uid)}>X</span>
+                ${(item.price / 100).toFixed(2)}
+                <span onClick={() => handleClick(item.id)}>X</span>
               </p>
             </div>
           ))}

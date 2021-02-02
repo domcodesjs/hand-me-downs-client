@@ -33,7 +33,7 @@ const UserPurchaseDetails = () => {
         if (!data.success) {
           return history.push('/');
         }
-
+        console.log(data);
         return setPurchase(data.purchase);
       } catch (err) {
         return history.push('/');
@@ -43,74 +43,58 @@ const UserPurchaseDetails = () => {
     getPurchase();
   }, [history, purchaseId]);
 
-  const renderPurchasedItems = (items) => {
-    const accumulator = [];
-
-    for (let key in items) {
-      accumulator.push(
-        <>
-          <Link to={`/shop/${key}`}>
-            <h3>
-              {key} <span>({items[key]['orderStatus']})</span>
-            </h3>
-          </Link>
-          {items[key]['items'].map((item, idx) => (
-            <div className='purchase-item' key={idx}>
-              <Link to={`/listing/${item.uid}/${item.slug}`}>
-                <img src={`${API_URL}/uploads/images/${item.image}`} alt='' />
+  const renderPurchasedItems = (orders) => {
+    return orders.map((order, idx) => (
+      <div key={idx}>
+        <h3>{order.seller.username}</h3>
+        <h4>Order Status: {order.shipped ? 'Shipped' : 'Processing'}</h4>
+        {order.items.map((item, idx) => (
+          <div className='purchase-item' key={idx}>
+            <Link to={`/listing/${item.id}/${item.slug}`}>
+              <img src={`${API_URL}/uploads/images/${item.image}`} alt='' />
+            </Link>
+            <p>
+              <Link to={`/listing/${item.id}/${item.slug}`}>
+                {item.title.length > 21
+                  ? item.title.substring(0, 18) + '...'
+                  : item.title}
               </Link>
-              <p>
-                <Link to={`/listing/${item.uid}/${item.slug}`}>
-                  {item.title.length > 21
-                    ? item.title.substring(0, 18) + '...'
-                    : item.title}
-                </Link>
-              </p>
-              <p>${item.price}</p>
-            </div>
-          ))}
-        </>
-      );
-    }
-    return accumulator;
+            </p>
+            <p>${(item.price / 100).toFixed(2)}</p>
+          </div>
+        ))}
+      </div>
+    ));
   };
 
   const renderPurchase = () => {
-    const {
-      purchases_created: createdAt,
-      purchases_items: items,
-      purchases_shipping_address: shippingAddress,
-      purchases_uid: uid,
-      purchases_total: total
-    } = purchase;
+    const { created_at, orders, shipping_address, id, total } = purchase;
 
     return (
       <StyledMain>
-        <h1>Purchase #{uid}</h1>
+        <h1>Purchase #{id}</h1>
         <h2>Purchase Summary</h2>
-        <p>Purchased on {format(new Date(createdAt), 'MM/dd/yyyy')}</p>
+        <p>Purchased on {format(new Date(created_at), 'MM/dd/yyyy')}</p>
         <div className='purchase-shipping-info'>
           <h2>Shipping Information</h2>
-          <p>{shippingAddress.fullName}</p>
-          <p>{shippingAddress.addressOne}</p>
-          {shippingAddress.addressTwo.length ? (
-            <p>{shippingAddress.addressTwo}</p>
+          <p>{shipping_address.fullName}</p>
+          <p>{shipping_address.addressOne}</p>
+          {shipping_address.addressTwo.length ? (
+            <p>{shipping_address.addressTwo}</p>
           ) : null}
           <p>
-            {shippingAddress.city}, {shippingAddress.state}{' '}
-            {shippingAddress.zipCode}
+            {shipping_address.city}, {shipping_address.state}{' '}
+            {shipping_address.zipCode}
           </p>
         </div>
         <div className='purchased-items'>
           <h2>Items Purchased</h2>
-          {renderPurchasedItems(items).map((item, idx) => {
-            return <div key={idx}>{item}</div>;
-          })}
+          {renderPurchasedItems(orders)}
         </div>
 
         <div className='purchase-billing-info'>
           <h2>Billing Information</h2>
-          <p>Total ${total}</p>
+          <p>Total ${(total / 100).toFixed(2)}</p>
         </div>
       </StyledMain>
     );

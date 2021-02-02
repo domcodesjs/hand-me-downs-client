@@ -11,6 +11,7 @@ const LatestListings = () => {
     const getListings = async () => {
       const res = await fetch(`${API_URL}/listings/app/latest`);
       const data = await res.json();
+      console.log(data);
       return setListings(data.listings);
     };
     getListings();
@@ -26,19 +27,19 @@ const LatestListings = () => {
         <h1 className='newly-added-title'>Newly Added</h1>
         <StyledDiv>
           {listings.map((listing) => (
-            <div className='listing' key={listing.uid}>
+            <div className='listing' key={listing.id}>
               <img
                 src={`${API_URL}/uploads/images/${listing.image}`}
                 alt=''
                 onClick={() =>
-                  history.push(`/listing/${listing.uid}/${listing.slug}`)
+                  history.push(`/listing/${listing.id}/${listing.slug}`)
                 }
               />
               <h1>{listing.title}</h1>
-              <p>${listing.price}</p>
+              <p>${(listing.price / 100).toFixed(2)}</p>
               <button
                 onClick={() =>
-                  history.push(`/listing/${listing.uid}/${listing.slug}`)
+                  history.push(`/listing/${listing.id}/${listing.slug}`)
                 }
               >
                 View Details

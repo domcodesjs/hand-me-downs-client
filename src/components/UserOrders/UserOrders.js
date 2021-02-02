@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 import { API_URL } from '../../config';
 
 const UserOrders = () => {
   const [orders, setOrders] = useState(null);
-  const authState = useSelector(({ auth }) => auth);
   let history = useHistory();
 
   useEffect(() => {
-    if (!authState.user) {
-      return history.push('/login');
-    }
-
     const getOrders = async () => {
       try {
         const JWT = localStorage.getItem('jwt');
@@ -26,6 +20,7 @@ const UserOrders = () => {
           }
         });
         const data = await res.json();
+        console.log(data);
         return setOrders(data.orders);
       } catch (err) {
         return history.push('/');
@@ -33,7 +28,7 @@ const UserOrders = () => {
     };
 
     getOrders();
-  }, [authState.user, history]);
+  }, [history]);
 
   const renderOrders = () => {
     return (
@@ -44,19 +39,18 @@ const UserOrders = () => {
           {orders.map((order, idx) => (
             <div key={idx} className='orders-item'>
               <p>
-                Ordered on{' '}
-                {format(new Date(order.order_created), 'MMM dd, yyyy')}
+                Ordered on {format(new Date(order.created_at), 'MMM dd, yyyy')}
               </p>
-              <p>Order #{order.order_uid}</p>
-              {order.order_items.length > 1 ? (
-                <p>{order.order_items.length} items</p>
+              <p>Order #{order.id}</p>
+              {order.items.length > 1 ? (
+                <p>{order.items.length} items</p>
               ) : (
-                <p>{order.order_items.length} item</p>
+                <p>{order.items.length} item</p>
               )}
               <button
                 type='button'
                 className='orders-item-btn'
-                onClick={() => history.push(`/your/order/${order.order_uid}`)}
+                onClick={() => history.push(`/your/order/${order.id}`)}
               >
                 View Order Details
               </button>
@@ -67,7 +61,7 @@ const UserOrders = () => {
     );
   };
 
-  return orders ? renderOrders() : <p>asdfsdf</p>;
+  return orders ? renderOrders() : null;
 };
 
 const StyledMain = styled.main`
