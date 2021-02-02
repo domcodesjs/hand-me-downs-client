@@ -20,7 +20,7 @@ const UserOrders = () => {
           }
         });
         const data = await res.json();
-        console.log(data);
+
         return setOrders(data.orders);
       } catch (err) {
         return history.push('/');

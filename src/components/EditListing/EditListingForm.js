@@ -56,9 +56,6 @@ const EditListingForm = () => {
         if (!data.success) {
           return history.push('/');
         }
-
-        console.log(data);
-
         setTitle(data.listing.title);
         setDescription(data.listing.description);
         setCategory(data.listing.category);

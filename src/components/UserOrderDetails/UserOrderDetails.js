@@ -34,8 +34,6 @@ const UserOrderDetails = () => {
           return history.push('/');
         }
 
-        console.log(data);
-
         return setOrder(data.order);
       } catch (err) {
         return history.push('/');

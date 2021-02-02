@@ -33,7 +33,7 @@ const UserPurchaseDetails = () => {
         if (!data.success) {
           return history.push('/');
         }
-        console.log(data);
+
         return setPurchase(data.purchase);
       } catch (err) {
         return history.push('/');
