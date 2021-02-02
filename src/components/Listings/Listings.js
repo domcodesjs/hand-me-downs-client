@@ -36,7 +36,7 @@ const Listings = () => {
               }
             />
             <h1>{listing.title}</h1>
-            <p>${(listing.price / 100).toFixed(2).toFixed(2)}</p>
+            <p>${(listing.price / 100).toFixed(2)}</p>
             <button
               onClick={() =>
                 history.push(`/listing/${listing.id}/${listing.slug}`)

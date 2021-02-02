@@ -31,7 +31,6 @@ const UserPurchases = () => {
         if (!data.success) {
           return history.push('/');
         }
-
         return setPurchases(data.purchases);
       } catch (err) {
         return history.push('/');
@@ -41,12 +40,11 @@ const UserPurchases = () => {
     getPurchases();
   }, [authState.user, history]);
 
-  const numberOfItemsOrder = (items) => {
+  const numberOfItemsOrdered = (orders) => {
     let count = 0;
-    for (let key in items) {
-      count += items[key]['items'].length;
+    for (let i = 0; i < orders.length; i++) {
+      count += orders[i].items.length;
     }
-
     return count > 1 ? <p>{count} items</p> : <p>{count} item</p>;
   };
 
@@ -60,18 +58,16 @@ const UserPurchases = () => {
             <div key={idx} className='purchases-item'>
               <p>
                 Purchased on{' '}
-                {format(new Date(purchase.purchases_created), 'MMM dd, yyyy')}
+                {format(new Date(purchase.created_at), 'MMM dd, yyyy')}
               </p>
-              <p>Purchase #{purchase.purchases_uid}</p>
-              {numberOfItemsOrder(purchase.purchases_items)}
+              <p>Purchase #{purchase.id}</p>
+              {numberOfItemsOrdered(purchase.orders)}
               <button
                 type='button'
                 className='purchases-item-btn'
-                onClick={() =>
-                  history.push(`/your/purchase/${purchase.purchases_uid}`)
-                }
+                onClick={() => history.push(`/your/purchase/${purchase.id}`)}
               >
-                View Order Details
+                View Details
               </button>
             </div>
           ))}

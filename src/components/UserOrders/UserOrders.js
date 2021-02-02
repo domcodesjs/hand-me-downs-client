@@ -20,6 +20,7 @@ const UserOrders = () => {
           }
         });
         const data = await res.json();
+        console.log(data);
         return setOrders(data.orders);
       } catch (err) {
         return history.push('/');
@@ -38,19 +39,18 @@ const UserOrders = () => {
           {orders.map((order, idx) => (
             <div key={idx} className='orders-item'>
               <p>
-                Ordered on{' '}
-                {format(new Date(order.order_created), 'MMM dd, yyyy')}
+                Ordered on {format(new Date(order.created_at), 'MMM dd, yyyy')}
               </p>
-              <p>Order #{order.order_uid}</p>
-              {order.order_items.length > 1 ? (
-                <p>{order.order_items.length} items</p>
+              <p>Order #{order.id}</p>
+              {order.items.length > 1 ? (
+                <p>{order.items.length} items</p>
               ) : (
-                <p>{order.order_items.length} item</p>
+                <p>{order.items.length} item</p>
               )}
               <button
                 type='button'
                 className='orders-item-btn'
-                onClick={() => history.push(`/your/order/${order.order_uid}`)}
+                onClick={() => history.push(`/your/order/${order.id}`)}
               >
                 View Order Details
               </button>
