@@ -1,11 +1,9 @@
 import React from 'react';
-import SearchForm from '../SearchForm/SearchForm';
 import LatestListings from './LatestListings';
 
 const Home = () => {
   return (
     <>
-      <SearchForm></SearchForm>
       <iframe
         width='100%'
         height='400px'

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import SearchForm from '../SearchForm/SearchForm';
 import menuIcon from './images/menu.svg';
 import xIcon from './images/x.svg';
 import cartIcon from './images/shopping-cart.svg';
@@ -10,31 +11,63 @@ const Nav = ({ toggleNav, navActive }) => {
 
   return (
     <StyledNav>
-      {navActive ? (
-        <img src={xIcon} alt='Menu Icon' onClick={toggleNav} />
-      ) : (
-        <img src={menuIcon} alt='Menu Icon' onClick={toggleNav} />
-      )}
-
-      <Link to='/'>
-        <h1>hand me downs</h1>
-      </Link>
-      <img
-        src={cartIcon}
-        alt='Cart Icon'
-        onClick={() => history.push('/cart')}
-      />
+      <div className='nav-contents-left'>
+        <Link to='/'>
+          <img
+            src='https://leanfrontiers.com/wp-content/uploads/2018/12/logo-placeholder-png.png'
+            alt='Placeholder'
+            className='logo'
+          />
+        </Link>
+        <Link to='/listings'>Listings</Link>
+      </div>
+      <SearchForm></SearchForm>
+      <ul className='nav-contents-left'>
+        <li>
+          <Link>Cart</Link>
+        </li>
+        <li>
+          <Link>Sign In</Link>
+        </li>
+      </ul>
     </StyledNav>
   );
 };
 
 const StyledNav = styled.nav`
   align-items: center;
+  justify-content: space-between;
   display: flex;
   height: 100%;
   margin: 0 auto;
   width: 28.8rem;
-  justify-content: space-between;
+  color: #fff;
+
+  .nav-contents-left {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 6rem;
+      height: 6rem;
+    }
+  }
+
+  form {
+    display: flex;
+
+    input {
+      border: none;
+      outline: none;
+      height: 4rem;
+    }
+
+    button {
+      border: none;
+      outline: none;
+      height: 4rem;
+    }
+  }
 
   @media (min-width: 576px) {
     width: 50rem;

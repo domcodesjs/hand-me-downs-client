@@ -11,10 +11,9 @@ const Header = ({ toggleNav, navActive }) => {
 };
 
 const StyledHeader = styled.header`
-  margin: 0 auto;
+  width: 100%;
   background: #000;
-  height: 6.4rem;
-  color: #fff;
+  height: 8.8rem;
 `;
 
 export default Header;

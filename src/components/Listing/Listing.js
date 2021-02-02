@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { API_URL } from '../../config';
-import SearchForm from '../SearchForm/SearchForm';
 
 const Listing = () => {
   const [listing, setListing] = useState(null);
@@ -72,7 +71,6 @@ const Listing = () => {
   const renderListing = () => {
     return (
       <>
-        <SearchForm></SearchForm>
         <StyledMain>
           <img
             src={`${API_URL}/uploads/images/${listing.image}`}

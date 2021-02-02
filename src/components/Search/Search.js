@@ -3,7 +3,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import queryString from 'query-string';
 import { API_URL } from '../../config';
-import SearchForm from '../SearchForm/SearchForm';
 
 const Search = () => {
   const [results, setResults] = useState(null);
@@ -73,7 +72,6 @@ const Search = () => {
 
   return results ? (
     <>
-      <SearchForm></SearchForm>
       <StyledMain>
         <h1>Search Results</h1>
         {renderResults()}

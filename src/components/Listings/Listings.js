@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { API_URL } from '../../config';
-import SearchForm from '../SearchForm/SearchForm';
 
 const Listings = () => {
   const [listings, setListings] = useState();
@@ -23,7 +22,6 @@ const Listings = () => {
 
   return listings ? (
     <StyledMain>
-      <SearchForm></SearchForm>
       <h1 className='listing-title'>All Listings</h1>
       <div className='listings'>
         {listings.map((listing) => (

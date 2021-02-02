@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { API_URL } from '../../config';
-import SearchForm from '../SearchForm/SearchForm';
 
 const Shop = () => {
   const [shopListings, setShopListings] = useState(null);
@@ -35,7 +34,6 @@ const Shop = () => {
 
     return (
       <>
-        <SearchForm></SearchForm>
         <StyledMain>
           <h1>{username.trimEnd().toLowerCase()}</h1>
 
