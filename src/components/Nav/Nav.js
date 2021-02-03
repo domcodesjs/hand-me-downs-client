@@ -2,9 +2,8 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchForm from '../SearchForm/SearchForm';
-import menuIcon from './images/menu.svg';
-import xIcon from './images/x.svg';
-import cartIcon from './images/shopping-cart.svg';
+import SignupButton from './SignupButton';
+import LoginButton from './LoginButton';
 
 const Nav = ({ toggleNav, navActive }) => {
   let history = useHistory();
@@ -24,10 +23,13 @@ const Nav = ({ toggleNav, navActive }) => {
       <SearchForm></SearchForm>
       <ul className='nav-contents-left'>
         <li>
-          <Link>Cart</Link>
+          <Link to='/cart'>Cart</Link>
         </li>
         <li>
-          <Link>Sign In</Link>
+          <SignupButton></SignupButton>
+        </li>
+        <li>
+          <LoginButton></LoginButton>
         </li>
       </ul>
     </StyledNav>
@@ -39,9 +41,6 @@ const StyledNav = styled.nav`
   justify-content: space-between;
   display: flex;
   height: 100%;
-  margin: 0 auto;
-  width: 28.8rem;
-  color: #fff;
 
   .nav-contents-left {
     display: flex;
@@ -60,6 +59,14 @@ const StyledNav = styled.nav`
       border: none;
       outline: none;
       height: 4rem;
+      color: #cecece;
+      padding-left: 0.8rem;
+      background: black;
+      width: 28rem;
+
+      ::placeholder {
+        color: #ced4da;
+      }
     }
 
     button {
@@ -70,17 +77,17 @@ const StyledNav = styled.nav`
   }
 
   @media (min-width: 576px) {
-    width: 50rem;
+    /* width: 50rem; */
   }
   @media (min-width: 768px) {
-    width: 70rem;
+    /* width: 70rem; */
   }
   @media (min-width: 992px) {
-    width: 90rem;
+    /* width: 90rem; */
   }
 
   @media (min-width: 1200px) {
-    width: 112rem;
+    /* width: 112rem; */
   }
 
   h1 {

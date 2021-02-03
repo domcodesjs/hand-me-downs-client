@@ -6,6 +6,7 @@ import {
   Switch
 } from 'react-router-dom';
 import styled from 'styled-components';
+import { ModalProvider, BaseModalBackground } from 'styled-react-modal';
 import { useDispatch } from 'react-redux';
 import { verifyJWT } from './store/actions/authActions';
 import Header from './components/Header/Header';
@@ -31,6 +32,11 @@ import UserPurchaseDetails from './components/UserPurchaseDetails/UserPurchaseDe
 import PrivateRoute from './PrivateRoute';
 import Search from './components/Search/Search';
 
+const SpecialModalBackground = styled(BaseModalBackground)`
+  opacity: ${(props) => props.opacity};
+  transition: all 0.3s ease-in-out;
+`;
+
 const App = () => {
   const [navActive, setNavActive] = useState(false);
   const dispatch = useDispatch();
@@ -48,8 +54,8 @@ const App = () => {
     <>
       <Router>
         <GlobalStyle></GlobalStyle>
-        <Header toggleNav={toggleNav} navActive={navActive}></Header>
-        <StyledWrapper>
+        <ModalProvider backgroundComponent={SpecialModalBackground}>
+          <Header toggleNav={toggleNav} navActive={navActive}></Header>
           <SlideoutNav
             navActive={navActive}
             setNavActive={setNavActive}
@@ -128,7 +134,7 @@ const App = () => {
             </Route>
             <Redirect to='/404' />
           </Switch>
-        </StyledWrapper>
+        </ModalProvider>
       </Router>
     </>
   );
