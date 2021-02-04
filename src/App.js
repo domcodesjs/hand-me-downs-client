@@ -5,6 +5,8 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 import { ModalProvider, BaseModalBackground } from 'styled-react-modal';
 import { useDispatch } from 'react-redux';
@@ -54,6 +56,7 @@ const App = () => {
     <>
       <Router>
         <GlobalStyle></GlobalStyle>
+        <ToastContainer></ToastContainer>
         <ModalProvider backgroundComponent={SpecialModalBackground}>
           <Header toggleNav={toggleNav} navActive={navActive}></Header>
           <SlideoutNav

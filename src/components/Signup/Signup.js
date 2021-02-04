@@ -1,19 +1,7 @@
-import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import SignupForm from './SignupForm';
 
 const Signup = () => {
-  let history = useHistory();
-  const authState = useSelector(({ auth }) => auth);
-
-  useEffect(() => {
-    if (authState.user) {
-      return history.push('/');
-    }
-  }, [authState.user, history]);
-
   return (
     <StyledMain>
       <h1>Sign Up</h1>

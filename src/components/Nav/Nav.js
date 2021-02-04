@@ -1,12 +1,17 @@
-import React from 'react';
+import { useCallback } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import SearchForm from '../SearchForm/SearchForm';
 import SignupButton from './SignupButton';
 import LoginButton from './LoginButton';
+import { logout } from '../../store/actions/authActions';
 
 const Nav = ({ toggleNav, navActive }) => {
   let history = useHistory();
+  const dispatch = useDispatch();
+  const authState = useSelector(({ auth }) => auth);
+  const logoutUser = useCallback(() => dispatch(logout()), [dispatch]);
 
   return (
     <StyledNav>
@@ -21,15 +26,21 @@ const Nav = ({ toggleNav, navActive }) => {
         <Link to='/listings'>Listings</Link>
       </div>
       <SearchForm></SearchForm>
-      <ul className='nav-contents-left'>
+      <ul className='nav-contents-right'>
+        {authState.user ? (
+          <li onClick={logoutUser}>Signout</li>
+        ) : (
+          <>
+            <li>
+              <SignupButton></SignupButton>
+            </li>
+            <li>
+              <LoginButton></LoginButton>
+            </li>
+          </>
+        )}
         <li>
           <Link to='/cart'>Cart</Link>
-        </li>
-        <li>
-          <SignupButton></SignupButton>
-        </li>
-        <li>
-          <LoginButton></LoginButton>
         </li>
       </ul>
     </StyledNav>
@@ -50,6 +61,11 @@ const StyledNav = styled.nav`
       width: 6rem;
       height: 6rem;
     }
+  }
+
+  .nav-contents-right {
+    display: flex;
+    align-items: center;
   }
 
   form {

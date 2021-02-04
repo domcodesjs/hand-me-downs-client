@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { API_URL } from '../../config';
 import { signup } from '../../store/actions/authActions';
@@ -14,7 +13,6 @@ const SignupForm = () => {
   const signupSuccess = useCallback((user) => dispatch(signup(user)), [
     dispatch
   ]);
-  let history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +44,6 @@ const SignupForm = () => {
 
       localStorage.setItem('jwt', data.token);
       signupSuccess(data.user);
-      return history.push('/');
     } catch (err) {
       return setErrors(['Something went wrong. Please try again.']);
     }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 import Modal from 'styled-react-modal';
 import Signup from '../Signup/Signup';
 
@@ -26,7 +27,7 @@ function SignupButton() {
 
   return (
     <div>
-      <button onClick={toggleModal}>Signup</button>
+      <StyledButton onClick={toggleModal}>Signup</StyledButton>
       <StyledModal
         isOpen={isOpen}
         afterOpen={afterOpen}
@@ -41,6 +42,13 @@ function SignupButton() {
     </div>
   );
 }
+
+const StyledButton = styled.button`
+  background: none;
+  border: 0.1rem solid #000;
+  border-radius: 10rem;
+  padding: 0.8rem 2.4rem;
+`;
 
 const StyledModal = Modal.styled`
   width: 78rem;

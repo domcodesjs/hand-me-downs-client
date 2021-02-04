@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { API_URL } from '../../config';
 import { signIn } from '../../store/actions/authActions';
 
-const LoginForm = () => {
+const LoginForm = ({ toggleModal }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState(null);
@@ -14,7 +14,6 @@ const LoginForm = () => {
     (email, password) => dispatch(signIn(email, password)),
     [dispatch]
   );
-  let history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +41,6 @@ const LoginForm = () => {
 
       localStorage.setItem('jwt', data.token);
       loginSuccess(data.user);
-      return history.push('/');
     } catch (err) {
       return setErrors(['Something went wrong. Please try again.']);
     }
@@ -79,7 +77,8 @@ const LoginForm = () => {
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  margin-top: 2.4rem;
+  /* width: 80%; */
+  width: 100%;
 
   label {
     margin-bottom: 0.8rem;

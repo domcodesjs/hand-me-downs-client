@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { API_URL } from '../../config';
 
 export const signIn = (user) => {
@@ -35,6 +36,6 @@ export const verifyJWT = () => {
 export const logout = () => {
   return (dispatch) => {
     localStorage.removeItem('jwt');
-    return dispatch({ type: 'LOGOUT' });
+    dispatch({ type: 'LOGOUT' });
   };
 };

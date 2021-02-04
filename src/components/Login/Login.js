@@ -1,43 +1,52 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import LoginForm from './LoginForm';
+import clothes from './images/clothes.jpg';
 
 const Login = () => {
-  let history = useHistory();
-  const authState = useSelector(({ auth }) => auth);
-
-  useEffect(() => {
-    if (authState.user) {
-      return history.push('/');
-    }
-  }, [authState.user, history]);
-
   return (
     <StyledMain>
-      <h1>Log In</h1>
-      <LoginForm></LoginForm>
+      <div className='close-btn'>X</div>
+      <div className='img'></div>
+      <div className='login'>
+        <h1>Log In</h1>
+        <LoginForm></LoginForm>
+      </div>
     </StyledMain>
   );
 };
 
 const StyledMain = styled.main`
-  h1 {
-    border-bottom: 0.1rem solid #d8d6d5;
-    padding-bottom: 0.8rem;
-    font-size: 2.2rem;
-    margin: 1.6rem 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  .close-btn {
+    position: absolute;
+    top: 1.6rem;
+    right: 1.6rem;
+  }
+
+  .img {
+    background: url(${clothes}) no-repeat;
+    background-size: cover;
+    border-radius: 0.4rem 0 0 0.4rem;
+  }
+
+  .login {
+    h1 {
+      margin-bottom: 3.2rem;
+      font-weight: 500;
+    }
+    padding: 0 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   @media (min-width: 576px) {
-    h1 {
-      margin: 1.6rem auto 1.6rem auto;
-    }
-
-    form {
-      margin: 0 auto;
-    }
   }
 `;
 
